@@ -39,7 +39,7 @@ public class stars : MonoBehaviour {
         Random.Range(minZ, maxZ)
       ));
 
-      points[i].startSize = Random.Range(5.0f, 10.0f);
+      points[i].startSize = Random.Range(1f, 5f);
       points[i].startColor = new Color(1, 1, 1, 1);
       points[i].rotation = Random.Range(0, 90);
     }
