@@ -66,6 +66,9 @@
  <Reference Include="Cinemachine">
  <HintPath>/Users/bastienGirschig/Documents/projects/0_alive/field_hermes/field_hermes_unity/Library/ScriptAssemblies/Cinemachine.dll</HintPath>
  </Reference>
+ <Reference Include="com.unity.multiplayer-hlapi.Editor">
+ <HintPath>/Users/bastienGirschig/Documents/projects/0_alive/field_hermes/field_hermes_unity/Library/ScriptAssemblies/com.unity.multiplayer-hlapi.Editor.dll</HintPath>
+ </Reference>
  <Reference Include="Unity.VSCode.Editor">
  <HintPath>/Users/bastienGirschig/Documents/projects/0_alive/field_hermes/field_hermes_unity/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
  </Reference>
@@ -81,32 +84,17 @@
  <Reference Include="Unity.CollabProxy.Editor">
  <HintPath>/Users/bastienGirschig/Documents/projects/0_alive/field_hermes/field_hermes_unity/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
  </Reference>
- <Reference Include="Unity.Rider.Editor">
- <HintPath>/Users/bastienGirschig/Documents/projects/0_alive/field_hermes/field_hermes_unity/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
- </Reference>
- <Reference Include="Unity.2D.Sprite.Editor">
- <HintPath>/Users/bastienGirschig/Documents/projects/0_alive/field_hermes/field_hermes_unity/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
- </Reference>
- <Reference Include="com.unity.cinemachine.editor">
- <HintPath>/Users/bastienGirschig/Documents/projects/0_alive/field_hermes/field_hermes_unity/Library/ScriptAssemblies/com.unity.cinemachine.editor.dll</HintPath>
- </Reference>
- <Reference Include="Unity.VisualStudio.Editor">
- <HintPath>/Users/bastienGirschig/Documents/projects/0_alive/field_hermes/field_hermes_unity/Library/ScriptAssemblies/Unity.VisualStudio.Editor.dll</HintPath>
- </Reference>
- <Reference Include="Unity.TextMeshPro">
- <HintPath>/Users/bastienGirschig/Documents/projects/0_alive/field_hermes/field_hermes_unity/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
- </Reference>
- <Reference Include="UnityEditor.UI">
- <HintPath>/Users/bastienGirschig/Documents/projects/0_alive/field_hermes/field_hermes_unity/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
- </Reference>
- <Reference Include="com.unity.multiplayer-hlapi.Editor">
- <HintPath>/Users/bastienGirschig/Documents/projects/0_alive/field_hermes/field_hermes_unity/Library/ScriptAssemblies/com.unity.multiplayer-hlapi.Editor.dll</HintPath>
- </Reference>
  <Reference Include="com.unity.multiplayer-weaver.Editor">
  <HintPath>/Users/bastienGirschig/Documents/projects/0_alive/field_hermes/field_hermes_unity/Library/ScriptAssemblies/com.unity.multiplayer-weaver.Editor.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.XR.LegacyInputHelpers">
  <HintPath>/Users/bastienGirschig/Documents/projects/0_alive/field_hermes/field_hermes_unity/Library/ScriptAssemblies/UnityEngine.XR.LegacyInputHelpers.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.Rider.Editor">
+ <HintPath>/Users/bastienGirschig/Documents/projects/0_alive/field_hermes/field_hermes_unity/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.2D.Sprite.Editor">
+ <HintPath>/Users/bastienGirschig/Documents/projects/0_alive/field_hermes/field_hermes_unity/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.2D.Tilemap.Editor">
  <HintPath>/Users/bastienGirschig/Documents/projects/0_alive/field_hermes/field_hermes_unity/Library/ScriptAssemblies/Unity.2D.Tilemap.Editor.dll</HintPath>
@@ -114,14 +102,26 @@
  <Reference Include="UnityEditor.SpatialTracking">
  <HintPath>/Users/bastienGirschig/Documents/projects/0_alive/field_hermes/field_hermes_unity/Library/ScriptAssemblies/UnityEditor.SpatialTracking.dll</HintPath>
  </Reference>
+ <Reference Include="com.unity.cinemachine.editor">
+ <HintPath>/Users/bastienGirschig/Documents/projects/0_alive/field_hermes/field_hermes_unity/Library/ScriptAssemblies/com.unity.cinemachine.editor.dll</HintPath>
+ </Reference>
  <Reference Include="UnityEngine.SpatialTracking">
  <HintPath>/Users/bastienGirschig/Documents/projects/0_alive/field_hermes/field_hermes_unity/Library/ScriptAssemblies/UnityEngine.SpatialTracking.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.VisualStudio.Editor">
+ <HintPath>/Users/bastienGirschig/Documents/projects/0_alive/field_hermes/field_hermes_unity/Library/ScriptAssemblies/Unity.VisualStudio.Editor.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.TextMeshPro">
+ <HintPath>/Users/bastienGirschig/Documents/projects/0_alive/field_hermes/field_hermes_unity/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Analytics.DataPrivacy">
  <HintPath>/Users/bastienGirschig/Documents/projects/0_alive/field_hermes/field_hermes_unity/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.XR.LegacyInputHelpers">
  <HintPath>/Users/bastienGirschig/Documents/projects/0_alive/field_hermes/field_hermes_unity/Library/ScriptAssemblies/UnityEditor.XR.LegacyInputHelpers.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.UI">
+ <HintPath>/Users/bastienGirschig/Documents/projects/0_alive/field_hermes/field_hermes_unity/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
  </Reference>
  <Reference Include="com.unity.multiplayer-hlapi.Runtime">
  <HintPath>/Users/bastienGirschig/Documents/projects/0_alive/field_hermes/field_hermes_unity/Library/ScriptAssemblies/com.unity.multiplayer-hlapi.Runtime.dll</HintPath>
@@ -323,6 +323,9 @@
  </Reference>
  <Reference Include="UnityEditor.Purchasing">
  <HintPath>/Users/bastienGirschig/Documents/projects/0_alive/field_hermes/field_hermes_unity/Library/PackageCache/com.unity.purchasing@2.0.6/Editor/UnityEditor.Purchasing.dll</HintPath>
+ </Reference>
+ <Reference Include="websocket-sharp">
+ <HintPath>/Users/bastienGirschig/Documents/projects/0_alive/field_hermes/field_hermes_unity/Assets/Dependencies/websocket-sharp/Release/websocket-sharp.dll</HintPath>
  </Reference>
  <Reference Include="nunit.framework">
  <HintPath>/Users/bastienGirschig/Documents/projects/0_alive/field_hermes/field_hermes_unity/Library/PackageCache/com.unity.ext.nunit@1.0.0/net35/unity-custom/nunit.framework.dll</HintPath>
