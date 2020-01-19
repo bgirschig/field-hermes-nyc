@@ -11,3 +11,9 @@ obj
 albedo_sharp.png
 albedo_sharp_small.png
 albedo_sharp_small_circle.png
+
+*.pyc
+detector/build
+detector/dist
+detector/env
+detector/mask.png
