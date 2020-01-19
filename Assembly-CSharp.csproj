@@ -54,6 +54,8 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\DetectorClient.cs" />
+     <Compile Include="Assets\DetectorStub.cs" />
+     <Compile Include="Assets\SocketStubClient.cs" />
      <Compile Include="Assets\post_processing\postProcessing.cs" />
      <Compile Include="Assets\scripts\gameHandler.cs" />
      <Compile Include="Assets\scripts\stars.cs" />
@@ -61,6 +63,7 @@
      <Compile Include="Assets\scripts\utils\linearMove.cs" />
      <Compile Include="Assets\swingingCamera.cs" />
      <None Include="Assets\various\tests\shader_starfield\starfield.shader" />
+     <None Include="Assets\Dependencies\JsonDotNet\link.xml" />
      <None Include="Assets\post_processing\post_processing.shader" />
      <None Include="Assets\Materials\bicolor.shader" />
  <Reference Include="Unity.Timeline.Editor">
@@ -312,8 +315,11 @@
  <Reference Include="Unity.Analytics.StandardEvents">
  <HintPath>/Users/bastienGirschig/Documents/projects/0_alive/field_hermes/field_hermes_unity/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.StandardEvents.dll</HintPath>
  </Reference>
+ <Reference Include="Newtonsoft.Json">
+ <HintPath>/Users/bastienGirschig/Documents/projects/0_alive/field_hermes/field_hermes_unity/Assets/Dependencies/JsonDotNet/Assemblies/Standalone/Newtonsoft.Json.dll</HintPath>
+ </Reference>
  <Reference Include="websocket-sharp">
- <HintPath>/Users/bastienGirschig/Documents/projects/0_alive/field_hermes/field_hermes_unity/Assets/Dependencies/websocket-sharp/Release/websocket-sharp.dll</HintPath>
+ <HintPath>/Users/bastienGirschig/Documents/projects/0_alive/field_hermes/field_hermes_unity/Assets/Dependencies/websocket-sharp/websocket-sharp.dll</HintPath>
  </Reference>
  <Reference Include="mscorlib">
  <HintPath>/Applications/Unity/Hub/Editor/2019.3.0a7/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>

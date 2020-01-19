@@ -324,8 +324,11 @@
  <Reference Include="UnityEditor.Purchasing">
  <HintPath>/Users/bastienGirschig/Documents/projects/0_alive/field_hermes/field_hermes_unity/Library/PackageCache/com.unity.purchasing@2.0.6/Editor/UnityEditor.Purchasing.dll</HintPath>
  </Reference>
+ <Reference Include="Newtonsoft.Json">
+ <HintPath>/Users/bastienGirschig/Documents/projects/0_alive/field_hermes/field_hermes_unity/Assets/Dependencies/JsonDotNet/Assemblies/Standalone/Newtonsoft.Json.dll</HintPath>
+ </Reference>
  <Reference Include="websocket-sharp">
- <HintPath>/Users/bastienGirschig/Documents/projects/0_alive/field_hermes/field_hermes_unity/Assets/Dependencies/websocket-sharp/Release/websocket-sharp.dll</HintPath>
+ <HintPath>/Users/bastienGirschig/Documents/projects/0_alive/field_hermes/field_hermes_unity/Assets/Dependencies/websocket-sharp/websocket-sharp.dll</HintPath>
  </Reference>
  <Reference Include="nunit.framework">
  <HintPath>/Users/bastienGirschig/Documents/projects/0_alive/field_hermes/field_hermes_unity/Library/PackageCache/com.unity.ext.nunit@1.0.0/net35/unity-custom/nunit.framework.dll</HintPath>
