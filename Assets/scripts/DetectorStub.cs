@@ -59,6 +59,21 @@ public class DetectorStub {
     return value;
   }
 
+  public async Task<float> detectWithDebug(Texture2D target) {
+    string[] response = await stubClient.call<string[]>("detect", true);
+    float value = float.Parse(response[0]);
+    
+    if (!target) target = new Texture2D(1,1);
+    dataUriToTexture(response[1], target);
+    return value;
+  }
+  public async Task<(float, Texture2D)> detectWithDebug() {
+    Texture2D target = new Texture2D(1,1);
+    float value = await detectWithDebug(target);
+    return (value, target);
+  }
+
+
   static string textureToDataUri(Texture2D tex, string type = "png") {
     byte[] bytes;
 

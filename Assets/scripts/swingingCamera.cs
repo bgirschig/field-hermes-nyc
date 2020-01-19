@@ -5,6 +5,8 @@ using Cinemachine;
 
 public class swingingCamera : MonoBehaviour
 {
+    public DetectorClient detectorClient;
+
     public AnimationCurve swingInfluence;
     public AnimationCurve travelSpeed;
 
@@ -19,7 +21,8 @@ public class swingingCamera : MonoBehaviour
 
     // Update is called once per frame
     void Update() {
-        float swing_position = Mathf.Sin(Time.time*1.5f);
+        // float swing_position = Mathf.Sin(Time.time*1.5f);
+        float swing_speed = detectorClient.speed;
 
         float swingInfluence_now = swingInfluence.Evaluate(dolly.m_PathPosition - dolly.m_Path.PathLength);
         float travelspeed_now = travelSpeed.Evaluate(dolly.m_PathPosition - dolly.m_Path.PathLength);
@@ -27,8 +30,8 @@ public class swingingCamera : MonoBehaviour
         // always move forward a little bit
         dolly.m_PathPosition += travelspeed_now;
 
-        float offset = swing_position * swingInfluence_now;
-        if (swing_position > 0) dolly.m_PathPosition += offset * 10;
+        float offset = swing_speed * swingInfluence_now;
+        if (swing_speed > 0) dolly.m_PathPosition += offset * 20;
         else dolly.m_PathPosition += offset * 5;
     }
 
