@@ -52,15 +52,15 @@ public class DetectorStub {
     return dataUriToTexture(dataUri);
   }
 
-  public async Task<float> detect() {
-    string[] response = await stubClient.call<string[]>("detect");
+  public async Task<float> detect(int channel=0) {
+    string[] response = await stubClient.call<string[]>("detect", false, channel);
     float value = float.Parse(response[0]);
     string debugImage = response[1];
     return value;
   }
 
-  public async Task<float> detectWithDebug(Texture2D target) {
-    string[] response = await stubClient.call<string[]>("detect", true);
+  public async Task<float> detectWithDebug(Texture2D target, int channel=0) {
+    string[] response = await stubClient.call<string[]>("detect", true, channel);
     float value = float.Parse(response[0]);
     
     if (!target) target = new Texture2D(1,1);

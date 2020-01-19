@@ -5127,9 +5127,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2b910de4f10e4ddea30f8f9a173e009, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  value: 0
   debugImage: {fileID: 1122779927}
   invert: 1
+  detectorColorChannel: 1
 --- !u!1 &612682719
 GameObject:
   m_ObjectHideFlags: 0

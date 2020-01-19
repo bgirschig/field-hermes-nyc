@@ -2,14 +2,19 @@
 using System;
 using UnityEngine.UI;
 
+public enum ColorChannel { Red, Green, Blue };
+
 public class DetectorClient : MonoBehaviour {
     DetectorStub detector;
     
-    [Range(-1.5f, 1.5f)]
-    public float position;
-    public float speed;
     public Image debugImage;
     public bool invert;
+    public ColorChannel detectorColorChannel;
+
+    [NonSerialized]
+    public float position;
+    [NonSerialized]
+    public float speed;
 
     bool ready;
     RollingArrayFloat prevValues;
@@ -43,7 +48,7 @@ public class DetectorClient : MonoBehaviour {
         float prevValue = prevValues[-1];
         float rawValue = prevValue;
         try {
-            rawValue = await detector.detectWithDebug(debugImage.sprite.texture);
+            rawValue = await detector.detectWithDebug(debugImage.sprite.texture, (int)detectorColorChannel);
             if (invert) rawValue = -rawValue;
         } catch (ArgumentNullException) {
         }
