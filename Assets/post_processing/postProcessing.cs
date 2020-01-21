@@ -4,11 +4,20 @@ using System.Collections;
 [ExecuteInEditMode]
 public class postProcessing : MonoBehaviour {
 	public Material material;
+    private Material materialInstance;
 
     int lastScreenWidth = 0;
     int lastScreenHeight = 0;
-    Camera mainCamera;
-	
+    bool initialized = false;
+
+    void Start() {
+        var allRenderers = (Renderer[])FindObjectsOfType(typeof(Renderer));
+        var matInstance = new Material(material);
+        foreach (Renderer renderer in allRenderers) {
+            if (renderer.sharedMaterial == material) renderer.sharedMaterial = matInstance;
+        }
+    }
+
     void OnScreenSizeChanged() {
         Camera mainCamera = this.GetComponent<Camera>();
 
