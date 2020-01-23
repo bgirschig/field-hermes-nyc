@@ -7,7 +7,6 @@ public enum ColorChannel { Red, Green, Blue };
 public class DetectorClient : MonoBehaviour {
     DetectorStub detector;
     
-    public Image debugImage;
     public bool invert;
     public ColorChannel detectorColorChannel;
 
@@ -25,13 +24,6 @@ public class DetectorClient : MonoBehaviour {
         detector = new DetectorStub("localhost:8765");
         
         await detector.setCamera(0);
-        var (value, tex) = await detector.detectWithDebug();
-        debugImage.GetComponent<AspectRatioFitter>().aspectRatio = (float)tex.width / tex.height;
-
-        debugImage.sprite = Sprite.Create(
-            tex,
-            new Rect(0, 0, tex.width, tex.height),
-            new Vector2(0.5f, 0.5f));
 
         prevValues = new RollingArrayFloat(5);
         prevSpeeds = new RollingArrayFloat(5);
@@ -48,7 +40,7 @@ public class DetectorClient : MonoBehaviour {
         float prevValue = prevValues[-1];
         float rawValue = prevValue;
         try {
-            rawValue = await detector.detectWithDebug(debugImage.sprite.texture, (int)detectorColorChannel);
+            rawValue = await detector.detect((int)detectorColorChannel);
             if (invert) rawValue = -rawValue;
         } catch (ArgumentNullException) {
         }
