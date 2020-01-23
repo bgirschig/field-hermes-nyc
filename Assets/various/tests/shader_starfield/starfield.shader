@@ -6,9 +6,9 @@ Shader "Unlit/Particle_AdditiveSimple"
   Properties
   {
     _MainTex ("Texture", 2D) = "white" {}
-    offsetX ("offsetX", Float) = 1
-    offsetY ("offsetY", Float) = 1
-    offsetZ ("offsetZ", Float) = 1
+    color1 ("foreground", Color) = (255,255,255,255)
+    color2 ("background", Color) = (0,0,0,255)
+    fogDensity ("fog density", Range (0,0.3)) = 1
   }
   SubShader
   {
@@ -21,49 +21,42 @@ Shader "Unlit/Particle_AdditiveSimple"
       CGPROGRAM
       #pragma vertex vert
       #pragma fragment frag
-      // make fog work
-      #pragma multi_compile_fog
       
       #include "UnityCG.cginc"
-      struct appdata
-      {
+      
+      struct appdata {
         float4 vertex : POSITION;
         float3 uv : TEXCOORD0;
-        float3 center : TEXCOORD1;
       };
-      struct v2f
-      {
+
+      struct v2f {
         float2 uv : TEXCOORD0;
-        float3 center : TEXCOORD1;
-        UNITY_FOG_COORDS(1)
         float4 vertex : SV_POSITION;
+        float4 screen : TEXCOORD1;
       };
+
       sampler2D _MainTex;
       float4 _MainTex_ST;
-      float offsetX;
-      float offsetY;
-      float offsetZ;
+      float4 color1;
+      float4 color2;
+      float fogDensity;
       
-      v2f vert (appdata v)
-      {
+      v2f vert (appdata v) {
         v2f o;
         o.vertex = UnityObjectToClipPos(v.vertex);
-        float4 screen = ComputeScreenPos(o.vertex);
-        // o.vertex.x -= v.center.x;
-        // o.vertex.y += v.center.y;
+        o.screen = ComputeScreenPos(o.vertex);
 
         o.uv = TRANSFORM_TEX(v.uv, _MainTex);
-        o.center = v.center;
         return o;
       }
       
-      fixed4 frag (v2f i) : SV_Target
-      {
-        // sample the texture
+      fixed4 frag (v2f i) : SV_Target {
+        float dist = i.vertex.z * _ProjectionParams.z;
+        float fog = smoothstep(fogDensity, 0.0, dist);
+
         fixed4 col = tex2D(_MainTex, i.uv);
-        // apply fog
-        UNITY_APPLY_FOG(i.fogCoord, col);
-        float val = i.center.z/20.0 + 0.5;
+        col.rgb = color2.rgb * fog + col.rgb * (1-fog);
+
         return col;
       }
       ENDCG
