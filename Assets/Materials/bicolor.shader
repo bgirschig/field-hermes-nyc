@@ -60,8 +60,7 @@
                 float fog = smoothstep(.05, 0.0, dist);
 
                 float luminance = 0.299*col.r + 0.587*col.g + 0.114*col.b;
-                float mask = step(0.5, luminance);
-                col = mask * color1 + (1.0-mask) * color2;
+                col = luminance * color1 + (1.0-luminance) * color2;
 
                 col = color2 * fog + col * (1-fog);
                 // return float4(col.rgb, 1);

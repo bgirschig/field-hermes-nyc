@@ -8,9 +8,6 @@ Library/
 Temp/
 VSCode.meta
 obj
-albedo_sharp.png
-albedo_sharp_small.png
-albedo_sharp_small_circle.png
 
 *.pyc
 detector/build

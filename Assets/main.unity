@@ -5270,7 +5270,7 @@ MonoBehaviour:
   m_Waypoints:
   - position: {x: 0, y: 0, z: -2500}
     roll: 0
-  - position: {x: 0, y: 0, z: -39.95}
+  - position: {x: 0, y: 0, z: -43}
     roll: 0
 --- !u!95 &777729700
 Animator:
@@ -6062,7 +6062,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1141222313315438807}
-  m_Mesh: {fileID: -2432090755550338912, guid: 00022492d6fb3431080bfda0f8369fe6, type: 3}
+  m_Mesh: {fileID: -2432090755550338912, guid: fd86feca0fc5441aa815b0a5e666e537, type: 3}
 --- !u!1 &1141222313315438807
 GameObject:
   m_ObjectHideFlags: 0
@@ -6075,7 +6075,7 @@ GameObject:
   - component: {fileID: 842001159295205554}
   - component: {fileID: 8254466304465923138}
   m_Layer: 0
-  m_Name: planet
+  m_Name: pegase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
