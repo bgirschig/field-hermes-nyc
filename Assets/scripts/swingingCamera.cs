@@ -32,7 +32,7 @@ public class swingingCamera : MonoBehaviour
 
         float offset = swing_speed * swingInfluence_now;
         if (swing_speed > 0) dolly.m_PathPosition += offset * 20;
-        else dolly.m_PathPosition += offset * 5;
+        else dolly.m_PathPosition += offset * 10;
     }
 
     public float distance_to_end {
