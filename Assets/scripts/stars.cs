@@ -64,7 +64,7 @@ public class stars : MonoBehaviour {
 
     Vector3 relativePos;
 
-    // TODO: [PERF] check out IJobParticleSystemParallelFor.Execute:
+    // TODO: [PERFORMANCE] check out IJobParticleSystemParallelFor.Execute:
     // https://docs.unity3d.com/2019.3/Documentation/ScriptReference/ParticleSystemJobs.IJobParticleSystemParallelFor.Execute.html?_ga=2.8315248.354632520.1578748773-404527570.1578568379
 
     for (int i = 0; i < starCount; i++) {      
@@ -79,7 +79,7 @@ public class stars : MonoBehaviour {
       if (relativePos.z < minZ) relativePos.z += frustumDepth;
       if (relativePos.z > maxZ) relativePos.z -= frustumDepth;
 
-      // TODO: [feature] scale down particles before the far plane, to avoid "popping" stars
+      // TODO: [FEATURE] scale down particles before the far plane, to avoid "popping" stars
       // points[i].size = points[i].startSize;
 
       points[i].position = Camera.main.cameraToWorldMatrix.MultiplyPoint(relativePos);  
