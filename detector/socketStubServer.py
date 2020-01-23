@@ -1,6 +1,7 @@
 import websockets
 import json
 from inspect import ismethod
+import logging
 
 class SocketStubServer():
   def __init__(self, stub):
@@ -47,4 +48,5 @@ class SocketStubServer():
       data = self.methods[method](*args)
       return {'data': data}
     except Exception as e:
+      logging.exception(e)
       return {'error': str(e)}

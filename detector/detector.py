@@ -107,7 +107,7 @@ class Detector:
       ret, frame = self.cap.read()
     if (frame is None): raise Exception("could not capture a frame")
 
-    if masked:
+    if masked and self.mask is not None and self.mask.shape[:2] == frame.shape[:2]:
       frame = frame * self.mask
 
     if cropped:
