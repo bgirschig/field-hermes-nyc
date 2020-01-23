@@ -6,9 +6,6 @@ public class ShootingStar : MonoBehaviour
 {
     public float rotateSpeed = 0;
 
-    public float angleStart = 0;
-    public float angleEnd = 45;
-
     private float rotationAccumulator = 0;
 
     // Start is called before the first frame update
