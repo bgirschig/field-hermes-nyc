@@ -55,7 +55,7 @@ public class shootingStarSpawn : MonoBehaviour
         // the comet's tail inside the viewport, moving outside)
         Vector2 delta2 = intersection2 - (Vector2)spawn_position;
         float angle2 = Mathf.Atan2(delta2.y, delta2.x);
-        instance.transform.rotation = Quaternion.Euler(0, 0, angle2 * Mathf.Rad2Deg);
+        instance.transform.localRotation = Quaternion.Euler(0, 0, angle2 * Mathf.Rad2Deg);
     }
 
     // void OnDrawGizmos() {
