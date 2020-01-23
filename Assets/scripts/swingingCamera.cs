@@ -11,7 +11,8 @@ public class swingingCamera : MonoBehaviour
     public AnimationCurve travelSpeed;
 
     CinemachineVirtualCamera camera;
-    CinemachineTrackedDolly dolly;
+    [HideInInspector]
+    public CinemachineTrackedDolly dolly;
 
     // Start is called before the first frame update
     void Start() {
@@ -36,7 +37,7 @@ public class swingingCamera : MonoBehaviour
     }
 
     public float distance_to_end {
-        get { return dolly.m_Path.PathLength - dolly.m_PathPosition; }
+        get { return Mathf.Max(0, dolly.m_Path.PathLength - dolly.m_PathPosition); }
     }
 
     public float normalized_position {

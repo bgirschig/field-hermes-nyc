@@ -3,18 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 
-public class gameHandler : MonoBehaviour
-{
+
+public class gameHandler : MonoBehaviour {
     swingingCamera swingingCamera;
 
     public CinemachineVirtualCamera travellingCamera;
     public CinemachineVirtualCamera planetCamera;
+    private CinemachineBrain cinemachineBrain;
     public AutoRotator planetCameraRotator;
+    
+    private enum Mode { Orbiting, Traveling };
+    private Mode currentMode = Mode.Traveling;
+
+    public GameObject landscape;
 
     // Start is called before the first frame update
     void Start() {
         Application.targetFrameRate = 30;
 
+        cinemachineBrain = GetComponent<CinemachineBrain>();
         swingingCamera = travellingCamera.gameObject.GetComponent<swingingCamera>();
 
         travellingCamera.m_Priority = 1;
@@ -30,10 +37,42 @@ public class gameHandler : MonoBehaviour
             Debug.Log("fullscreen");
         }
 
-        if (swingingCamera.distance_to_end <= 2) {
-            travellingCamera.m_Priority = 0;
-            planetCamera.m_Priority = 1;
-            planetCameraRotator.offset.Set(0.1f, 0, 0);
+        switch (currentMode) {
+            case Mode.Traveling:
+                if (swingingCamera.distance_to_end <= 2) startOrbiting();
+                break;
+            case Mode.Orbiting:
+                if (Input.GetKeyDown(KeyCode.T)) startTravelling();
+                break;
         }
+    }
+
+    void startOrbiting() {
+        travellingCamera.m_Priority = 0;
+        planetCamera.m_Priority = 1;
+        planetCameraRotator.offset.Set(0.2f, 0, 0);
+        currentMode = Mode.Orbiting;
+    }
+
+    void startTravelling() {
+        swingingCamera.dolly.m_PathPosition = 0;
+        
+        // Move everything so that the camera goes to 0,0,0 (to avoid overflowing the coordinates floats)
+        Vector3 offset = Camera.main.transform.position;
+        GameObject[] gameObjects =
+            UnityEngine.SceneManagement.SceneManager.GetActiveScene().GetRootGameObjects();
+        foreach (GameObject gameObject in gameObjects) gameObject.transform.position -= offset;
+
+        landscape.transform.position = Camera.main.transform.position + Camera.main.transform.forward * 10;
+        landscape.transform.rotation = Camera.main.transform.rotation;
+        // landscape.transform.Rotate(0.2f * 15, 0, 0);
+
+        travellingCamera.m_Priority = 1;
+        planetCamera.m_Priority = 0;
+        planetCameraRotator.offset.Set(0.2f, 0, 0);
+
+        // TODO move pegase to the end of the travelling once it's not visible
+
+        currentMode = Mode.Traveling;
     }
 }
