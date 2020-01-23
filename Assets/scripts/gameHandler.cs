@@ -33,7 +33,7 @@ public class gameHandler : MonoBehaviour
         if (swingingCamera.distance_to_end <= 2) {
             travellingCamera.m_Priority = 0;
             planetCamera.m_Priority = 1;
-            planetCameraRotator.offset.Set(0.2f, 0, 0);
+            planetCameraRotator.offset.Set(0.1f, 0, 0);
         }
     }
 }
