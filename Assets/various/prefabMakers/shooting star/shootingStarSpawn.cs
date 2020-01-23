@@ -24,7 +24,8 @@ public class shootingStarSpawn : MonoBehaviour
 
     void spawn() {
         // Instantiate the star
-        var instance = GameObject.Instantiate(prefabs[0]);
+        int prefabIndex = Random.Range(0, prefabs.Length);
+        var instance = GameObject.Instantiate(prefabs[prefabIndex]);
         instance.transform.parent = transform;
 
         // What point does the star rotate around. This is expressed as an angle:
@@ -43,10 +44,6 @@ public class shootingStarSpawn : MonoBehaviour
             spawn_distance
         );
         instance.transform.localPosition = spawn_position;
-
-        Debug.Log(frustum_radius);
-        Debug.Log(spawn_position);
-        Debug.Log(instance.transform.GetChild(0).localPosition.magnitude);
 
         // Find out how much to rotate the shooting star so that it sits right on the edge of the viewport
         FindCircleCircleIntersections(

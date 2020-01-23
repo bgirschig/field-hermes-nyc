@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: shooting star
+  m_Name: shooting star 2
   m_Shader: {fileID: 4800000, guid: 7f76aacaa819142238e7d214fe2ff856, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -40,7 +40,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 34b3a93a795874e4d9e146a44101092c, type: 3}
+        m_Texture: {fileID: 2800000, guid: c04d5a635707e411d9e545536edf3a5e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
