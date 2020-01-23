@@ -40,6 +40,7 @@ public class postProcessing : MonoBehaviour {
             OnScreenSizeChanged();
         }
 
-		Graphics.Blit(source, destination, materialInstance);
+        if (materialInstance) Graphics.Blit(source, destination, materialInstance);
+        else Graphics.Blit(source, destination);
 	}
 }
