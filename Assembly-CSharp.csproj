@@ -66,6 +66,7 @@
      <Compile Include="Assets\various\prefabMakers\shooting star\ShootingStar.cs" />
      <Compile Include="Assets\various\prefabMakers\shooting star\ShootingStarEditor.cs" />
      <Compile Include="Assets\various\prefabMakers\shooting star\shootingStarSpawn.cs" />
+     <Compile Include="Assets\various\tests\stars\randomize.cs" />
      <None Include="Assets\various\tests\shader_starfield\starfield.shader" />
      <None Include="Assets\Dependencies\JsonDotNet\link.xml" />
      <None Include="Assets\post_processing\post_processing.shader" />

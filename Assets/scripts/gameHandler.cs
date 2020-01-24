@@ -11,11 +11,13 @@ public class gameHandler : MonoBehaviour {
     public CinemachineVirtualCamera planetCamera;
     private CinemachineBrain cinemachineBrain;
     public AutoRotator planetCameraRotator;
-    
+    public GameObject pegase;
+    public GameObject pegaseTarget;
+    public GameObject landscape;
+
     private enum Mode { Orbiting, Traveling };
     private Mode currentMode = Mode.Traveling;
-
-    public GameObject landscape;
+    float resetPlanetAt = -1;
 
     // Start is called before the first frame update
     void Start() {
@@ -40,6 +42,12 @@ public class gameHandler : MonoBehaviour {
         switch (currentMode) {
             case Mode.Traveling:
                 if (swingingCamera.distance_to_end <= 2) startOrbiting();
+                if (resetPlanetAt>0 && Time.time > resetPlanetAt) {
+                    pegase.transform.position = pegaseTarget.transform.position;
+                    pegase.transform.rotation = pegaseTarget.transform.rotation;
+                    planetCameraRotator.reset();
+                    resetPlanetAt = -1;
+                }
                 break;
             case Mode.Orbiting:
                 if (Input.GetKeyDown(KeyCode.T)) startTravelling();
@@ -48,6 +56,7 @@ public class gameHandler : MonoBehaviour {
     }
 
     void startOrbiting() {
+        Debug.Log("startOrbiting");
         travellingCamera.m_Priority = 0;
         planetCamera.m_Priority = 1;
         planetCameraRotator.offset.Set(0.2f, 0, 0);
@@ -55,15 +64,16 @@ public class gameHandler : MonoBehaviour {
     }
 
     void startTravelling() {
+        Debug.Log("startOrbiting");
         swingingCamera.dolly.m_PathPosition = 0;
         
-        // Move everything so that the camera goes to 0,0,0 (to avoid overflowing the coordinates floats)
-        Vector3 offset = Camera.main.transform.position;
-        GameObject[] gameObjects =
-            UnityEngine.SceneManagement.SceneManager.GetActiveScene().GetRootGameObjects();
-        foreach (GameObject gameObject in gameObjects) gameObject.transform.position -= offset;
+        // // Move everything so that the camera goes to 0,0,0 (to avoid overflowing the coordinates floats)
+        // Vector3 offset = Camera.main.transform.position;
+        // GameObject[] gameObjects =
+        //     UnityEngine.SceneManagement.SceneManager.GetActiveScene().GetRootGameObjects();
+        // foreach (GameObject gameObject in gameObjects) gameObject.transform.position -= offset;
 
-        landscape.transform.position = Camera.main.transform.position + Camera.main.transform.forward * 10;
+        landscape.transform.position = Camera.main.transform.position + Camera.main.transform.forward * 15;
         landscape.transform.rotation = Camera.main.transform.rotation;
         // landscape.transform.Rotate(0.2f * 15, 0, 0);
 
@@ -71,8 +81,7 @@ public class gameHandler : MonoBehaviour {
         planetCamera.m_Priority = 0;
         planetCameraRotator.offset.Set(0.2f, 0, 0);
 
-        // TODO move pegase to the end of the travelling once it's not visible
-
+        resetPlanetAt = Time.time + 5;
         currentMode = Mode.Traveling;
     }
 }

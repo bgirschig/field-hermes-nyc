@@ -23,7 +23,6 @@ public class DetectorClient : MonoBehaviour {
     RollingArrayFloat prevValues;
     RollingArrayFloat prevSpeeds;
 
-
     async void Start() {
         detector = new DetectorStub("localhost:8765");
         graph = new AnimationCurve();
@@ -69,7 +68,6 @@ public class DetectorClient : MonoBehaviour {
         position = prevValues.average();
         prevSpeeds.Add((position - prevValue) / Time.deltaTime);
         speed = prevSpeeds.average();
-        graph.AddKey(Time.time, speed);
 
         currently_detecting = false;
     }

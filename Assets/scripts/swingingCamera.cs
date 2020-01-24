@@ -31,9 +31,12 @@ public class swingingCamera : MonoBehaviour
         // always move forward a little bit
         dolly.m_PathPosition += travelspeed_now;
 
-        float offset = swing_speed * swingInfluence_now;
-        if (swing_speed > 0) dolly.m_PathPosition += offset * 20;
-        else dolly.m_PathPosition += offset * 10;
+        float delta = (detectorClient.position * swingInfluence_now) - dolly.m_PathOffset.z;
+        dolly.m_PathOffset.Set(0, 0, detectorClient.position * swingInfluence_now);
+        if (delta < 0) dolly.m_PathPosition -= delta * 0.5f;
+        // float offset = swing_speed * swingInfluence_now;
+        // if (swing_speed > 0) dolly.m_PathPosition += offset * 20;
+        // else dolly.m_PathPosition += offset * 10;
     }
 
     public float distance_to_end {
