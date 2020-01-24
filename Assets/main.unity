@@ -5317,6 +5317,7 @@ GameObject:
   - component: {fileID: 963194232}
   - component: {fileID: 963194233}
   - component: {fileID: 963194229}
+  - component: {fileID: 963194234}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -5342,7 +5343,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.94509804, g: 0.39607844, b: 0.23137255, a: 1}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -5383,7 +5384,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -71.54004}
+  m_LocalPosition: {x: 0, y: 0, z: -2500}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -5424,6 +5425,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   material: {fileID: 2100000, guid: 86eea76047a0b453aa6c74a11d108068, type: 2}
+  colorGroups:
+  - foreground: {r: 1, g: 1, b: 1, a: 1}
+    background: {r: 0.8980392, g: 0.31764707, b: 0.19215687, a: 1}
+    maskColor: {r: 0, g: 0, b: 0, a: 0}
+  - foreground: {r: 1, g: 1, b: 1, a: 1}
+    background: {r: 0.83137256, g: 0.24313726, b: 0.50980395, a: 1}
+    maskColor: {r: 0, g: 0, b: 0, a: 0}
+  - foreground: {r: 1, g: 1, b: 1, a: 0}
+    background: {r: 0.17254902, g: 0.20392157, b: 0.34117648, a: 0}
+    maskColor: {r: 0, g: 0, b: 0, a: 0}
+  - foreground: {r: 1, g: 1, b: 1, a: 1}
+    background: {r: 0.16078432, g: 0.15294118, b: 0.16470589, a: 1}
+    maskColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &963194231
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5496,6 +5510,20 @@ MonoBehaviour:
   - {fileID: 2682366698156534468, guid: 5466a6d75ef8f420ca329f6edbe300af, type: 3}
   - {fileID: 2682366698156534468, guid: 9eede2f1908d74fcc9a2ed5804c1c46b, type: 3}
   - {fileID: 2682366698156534468, guid: 06a06ff0ee5954e86a5a025b564430db, type: 3}
+--- !u!114 &963194234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963194225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd02ddae2faab4e0d91e5504dbba30fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  active: 0
+  controller: {fileID: 963194230}
 --- !u!1 &1030263688
 GameObject:
   m_ObjectHideFlags: 0
@@ -5774,7 +5802,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Path: {fileID: 777729699}
-  m_PathPosition: 2428.46
+  m_PathPosition: 0
   m_PositionUnits: 1
   m_PathOffset: {x: 0, y: 0, z: 0}
   m_XDamping: 0

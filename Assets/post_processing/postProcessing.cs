@@ -1,14 +1,36 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[System.Serializable]
+public struct ColorGroup {
+    public Color foreground;
+    public Color background;
+    public Color maskColor;
+}
+
 [ExecuteInEditMode]
 public class postProcessing : MonoBehaviour {
 	public Material material;
+    public ColorGroup[] colorGroups;
+
     private Material materialInstance;
+    private int _colorGroupIndex = 0;
 
     int lastScreenWidth = 0;
     int lastScreenHeight = 0;
     bool initialized = false;
+
+    public int colorGroupIndex {
+        get { return _colorGroupIndex; }
+        set {
+            _colorGroupIndex = value % colorGroups.Length;
+            if (!materialInstance) return;
+            
+            materialInstance.SetColor("foreground", colorGroups[colorGroupIndex].foreground);
+            materialInstance.SetColor("background", colorGroups[colorGroupIndex].background);
+            materialInstance.SetColor("maskColor", colorGroups[colorGroupIndex].maskColor);
+        }
+    }
 
     void Start() {
         var allRenderers = (Renderer[])FindObjectsOfType(typeof(Renderer));
@@ -16,6 +38,7 @@ public class postProcessing : MonoBehaviour {
         foreach (Renderer renderer in allRenderers) {
             if (renderer.sharedMaterial == material) renderer.sharedMaterial = materialInstance;
         }
+        colorGroupIndex = 0;
     }
 
     void OnScreenSizeChanged() {

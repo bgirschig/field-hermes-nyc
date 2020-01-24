@@ -3,6 +3,9 @@
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
+        foreground ("foreground", Color) = (255,255,255,255)
+        background ("background", Color) = (0,0,0,255)
+        maskColor ("mask", Color) = (255,0,0,255)
         width ("mask width", Float) = 1
         height ("mask height", Float) = 1
     }
@@ -42,10 +45,14 @@
             sampler2D _MainTex;
             float width;
             float height;
+            float4 foreground;
+            float4 background;
+            float4 maskColor;
 
-            fixed4 frag (v2f i) : SV_Target
-            {
+            fixed4 frag (v2f i) : SV_Target {
                 fixed4 col = tex2D(_MainTex, i.uv);
+                float alpha = col.a;
+                col = col * foreground + (1.0f-col) * background;
 
                 float2 newUv = i.uv - 0.5;
                 newUv.x /= width;
@@ -53,13 +60,9 @@
                 float distance = length(newUv);
                 float mask = smoothstep(distance, distance+0.01, 0.5);
 
-                float rimMask = smoothstep(distance+0.012, distance+0.01, 0.5);
-                float4 rimColor = float4(0.0,0.0,1.0,1.0);
-
-                // float luminance = sqrt( 0.299*pow(col.r, 2.0) + 0.587*pow(col.g,2.0) + 0.114*pow(col.b,2.0) );
-                // col = step(luminance, 0.6);
-
-                return col * (mask-rimMask) + rimColor * (rimMask - (1.0-mask));
+                col = col * mask + (1-mask) * maskColor;
+                col.a = 1;
+                return col;
             }
             ENDCG
         }

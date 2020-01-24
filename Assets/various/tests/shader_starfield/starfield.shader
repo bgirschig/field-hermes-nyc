@@ -6,8 +6,6 @@ Shader "Unlit/Particle_AdditiveSimple"
   Properties
   {
     _MainTex ("Texture", 2D) = "white" {}
-    color1 ("foreground", Color) = (255,255,255,255)
-    color2 ("background", Color) = (0,0,0,255)
     fogDensity ("fog density", Range (0,0.3)) = 1
   }
   SubShader
@@ -37,8 +35,6 @@ Shader "Unlit/Particle_AdditiveSimple"
 
       sampler2D _MainTex;
       float4 _MainTex_ST;
-      float4 color1;
-      float4 color2;
       float fogDensity;
       
       v2f vert (appdata v) {
@@ -51,11 +47,14 @@ Shader "Unlit/Particle_AdditiveSimple"
       }
       
       fixed4 frag (v2f i) : SV_Target {
+        float4 foregroundCol = float4(1,1,1,1);
+        float4 backgroundCol = float4(0,0,0,1);
+
         float dist = i.vertex.z * _ProjectionParams.z;
         float fog = smoothstep(fogDensity, 0.0, dist);
 
         fixed4 col = tex2D(_MainTex, i.uv);
-        col.rgb = color2.rgb * fog + col.rgb * (1-fog);
+        col.rgb = backgroundCol.rgb * fog + col.rgb * (1-fog);
 
         return col;
       }
