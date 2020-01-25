@@ -59,7 +59,7 @@ public class gameHandler : MonoBehaviour {
         Debug.Log("startOrbiting");
         travellingCamera.m_Priority = 0;
         planetCamera.m_Priority = 1;
-        planetCameraRotator.offset.Set(0.2f, 0, 0);
+        planetCameraRotator.offset.Set(0.05f, 0, 0);
         currentMode = Mode.Orbiting;
     }
 
