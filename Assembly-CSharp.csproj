@@ -53,6 +53,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\AnimationSwingController.cs" />
      <Compile Include="Assets\Eureka.cs" />
      <Compile Include="Assets\post_processing\postProcessing.cs" />
      <Compile Include="Assets\scripts\DetectorClient.cs" />
