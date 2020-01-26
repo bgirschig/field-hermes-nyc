@@ -22,21 +22,13 @@ public class swingingCamera : MonoBehaviour
 
     // Update is called once per frame
     void Update() {
-        // float swing_position = Mathf.Sin(Time.time*1.5f);
         float swing_speed = detectorClient.speed;
 
         float swingInfluence_now = swingInfluence.Evaluate(dolly.m_PathPosition - dolly.m_Path.PathLength);
         float travelspeed_now = travelSpeed.Evaluate(dolly.m_PathPosition - dolly.m_Path.PathLength);
 
-        // always move forward a little bit
-        dolly.m_PathPosition += travelspeed_now;
-
-        float delta = (detectorClient.position * swingInfluence_now) - dolly.m_PathOffset.z;
-        dolly.m_PathOffset.Set(0, 0, detectorClient.position * swingInfluence_now);
-        if (delta < 0) dolly.m_PathPosition -= delta * 0.5f;
-        // float offset = swing_speed * swingInfluence_now;
-        // if (swing_speed > 0) dolly.m_PathPosition += offset * 20;
-        // else dolly.m_PathPosition += offset * 10;
+        if (detectorClient.speed > 0) dolly.m_PathPosition -= detectorClient.speed * 1;
+        else dolly.m_PathPosition -= detectorClient.speed * 2;
     }
 
     public float distance_to_end {
