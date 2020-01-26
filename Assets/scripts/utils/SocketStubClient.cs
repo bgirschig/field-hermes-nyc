@@ -49,6 +49,8 @@ public class SocketStubClient {
     string s_request = JsonConvert.SerializeObject(request);
 
     tasks.Add(request.id, tcs);
+    // TODO [STABILITY] handle the 'CONNECTING' state
+    if (ws.ReadyState != WebSocketSharp.WebSocketState.Open) ws.Connect();
     ws.Send(s_request);
     
     JObject json_response = await tcs.Task;

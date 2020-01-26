@@ -60,6 +60,12 @@ public class RollingArray<T> {
         this.count = 0;
         this.startIndex = 0;
     }
+
+    public void fill(T value) {
+        for (int i = 0; i < capacity; i++) this[i] = value;
+        startIndex = 0;
+        count = capacity;
+    }
 }
 
 public class RollingArrayFloat : RollingArray<float>
