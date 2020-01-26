@@ -53,7 +53,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\AnimationController.cs" />
      <Compile Include="Assets\Eureka.cs" />
      <Compile Include="Assets\post_processing\postProcessing.cs" />
      <Compile Include="Assets\scripts\DetectorClient.cs" />
@@ -68,6 +67,7 @@
      <Compile Include="Assets\various\prefabMakers\shooting star\ShootingStar.cs" />
      <Compile Include="Assets\various\prefabMakers\shooting star\ShootingStarEditor.cs" />
      <Compile Include="Assets\various\prefabMakers\shooting star\shootingStarSpawn.cs" />
+     <Compile Include="Assets\various\tests\animCurveTravel\AnimationController.cs" />
      <Compile Include="Assets\various\tests\stars\Randomize.cs" />
      <None Include="Assets\various\tests\shader_starfield\starfield.shader" />
      <None Include="Assets\Dependencies\JsonDotNet\link.xml" />
