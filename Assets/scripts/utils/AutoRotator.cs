@@ -7,6 +7,9 @@ public class AutoRotator : MonoBehaviour
     public Vector3 offset;
     private Vector3 startOffset;
     private Vector3 startRotation;
+    public DetectorClient detectorClient;
+
+    public bool active = false;
 
     // Start is called before the first frame update
     void Start() {
@@ -16,7 +19,11 @@ public class AutoRotator : MonoBehaviour
 
     // Update is called once per frame
     void Update() {
-        transform.Rotate(offset);
+        if (active) {
+            if (detectorClient.speed > 0) transform.Rotate(-detectorClient.speed * 0.02f, 0, 0);
+            else transform.Rotate(-detectorClient.speed * 0.06f, 0, 0);
+        }
+        // transform.Rotate(offset);
     }
 
     public void reset() {
