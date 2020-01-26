@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System;
+using System.Collections.Generic;
 using UnityEngine.UI;
 
 public enum ColorChannel { Red, Green, Blue };
@@ -13,6 +14,9 @@ public class DetectorClient : MonoBehaviour {
     public ColorChannel detectorColorChannel;
     public DetectorMode detectorMode = DetectorMode.Live;
     public Image debugImage;
+
+    List<string> inputOptions;
+    string inputMode;
 
     [NonSerialized]
     public float position;
@@ -37,14 +41,17 @@ public class DetectorClient : MonoBehaviour {
         prevValues.fill(0);
         prevSpeeds.fill(0);
 
-        switch (detectorMode) {
-            case DetectorMode.Live:
-                await detector.setCamera(0);
-                break;
-            case DetectorMode.Video:
-                await detector.setCamera("emulator");
-                break;
-        }
+        WebCamDevice[] devices = WebCamTexture.devices;
+        Dropdown dropdown = GameObject.Find("camera select").GetComponentInChildren<Dropdown>();
+        dropdown.options.Clear();
+        inputOptions = new List<string>();
+        for (int i = 0; i < devices.Length; i++) inputOptions.Add(devices[i].name);
+        inputOptions.Add("emulator");
+        inputOptions.Add("video");
+        inputOptions.Add("disabled");
+        dropdown.AddOptions(inputOptions);
+
+        selectInputOtion(0);
     }
 
     async void Update() {
@@ -58,9 +65,14 @@ public class DetectorClient : MonoBehaviour {
         float rawValue = prevValue;
 
         if (!skipDetection) {
-            switch (detectorMode) {
-                case DetectorMode.Live:
-                case DetectorMode.Video:
+            switch (inputMode) {
+                case "disabled":
+                    break;
+                case "emulator":
+                    rawValue = Mathf.Sin(Time.time*2) * 2;
+                    if (invert) rawValue = -rawValue;
+                    break;
+                case "detector":
                     try {
                         if (debugImage) {
                             var (value, tex) = await detector.detectWithDebug();
@@ -75,10 +87,6 @@ public class DetectorClient : MonoBehaviour {
                         }
                         if (invert) rawValue = -rawValue;
                     } catch (ArgumentNullException) {}
-                    break;
-                case DetectorMode.SineEmulator:
-                    rawValue = Mathf.Sin(Time.time*2) * 2;
-                    if (invert) rawValue = -rawValue;
                     break;
             }
         
@@ -102,5 +110,22 @@ public class DetectorClient : MonoBehaviour {
         speed = prevSpeeds.average();
         
         prevValue = rawValue;
+    }
+
+    public async void selectInputOtion(int id) {
+        switch (inputOptions[id]) {
+            case "disabled":
+            case "emulator":
+                inputMode = inputOptions[id];
+                break;
+            case "video":
+                await detector.setCamera("emulator");
+                inputMode = "detector";
+                break;
+            default:
+                await detector.setCamera(id);
+                inputMode = "detector";
+                break;
+        }
     }
 }
