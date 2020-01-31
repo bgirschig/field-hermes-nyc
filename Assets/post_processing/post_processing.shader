@@ -50,15 +50,18 @@
             float4 maskColor;
 
             fixed4 frag (v2f i) : SV_Target {
-                fixed4 col = tex2D(_MainTex, i.uv);
-                float alpha = col.a;
-                col = col * foreground + (1.0f-col) * background;
-
                 float2 newUv = i.uv - 0.5;
                 newUv.x /= width;
                 newUv.y /= height;
                 float distance = length(newUv);
                 float mask = smoothstep(distance, distance+0.01, 0.5);
+
+                // Eureka test
+                // i.uv.x += sin((newUv.y+_Time*2) * 20)*0.1f;
+                
+                fixed4 col = tex2D(_MainTex, i.uv);
+                float alpha = col.a;
+                col = col * foreground + (1.0f-col) * background;
 
                 col = col * mask + (1-mask) * maskColor;
                 col.a = 1;
