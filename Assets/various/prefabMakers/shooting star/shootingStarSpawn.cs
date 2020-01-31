@@ -11,15 +11,23 @@ public class shootingStarSpawn : MonoBehaviour
 
     // Distance from camera to spawned star
     float spawn_distance = 90;
+    float spawn_min_interval = 10;
+    float spawn_max_interval = 20;
+    float next_spawn_time = 0;
 
     // Start is called before the first frame update
     void Start() {
         spawn();
+        next_spawn_time = Random.Range(spawn_min_interval, spawn_min_interval);
     }
 
     // Update is called once per frame
     void Update() {
         if (Input.GetKeyDown(KeyCode.S)) spawn();
+        if (Time.time > next_spawn_time) {
+            spawn();
+            next_spawn_time = Time.time + Random.Range(spawn_min_interval, spawn_min_interval);
+        }
     }
 
     void spawn() {
