@@ -17,6 +17,9 @@ public class AnimationSwingController : MonoBehaviour
 
     // Update is called once per frame
     void Update() {
+        // auto-advance
+        time += 0.2 * Time.deltaTime;
+
         if (detectorClient.speed > 0) time += detectorClient.speed * 0.02;
         else time += detectorClient.speed * 0.01;
         time = time % director.duration;
