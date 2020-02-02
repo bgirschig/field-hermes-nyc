@@ -4,6 +4,7 @@
  * conversions (eg. data-uri to unity textures)
 */
 
+using System;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 using UnityEngine;
@@ -11,15 +12,30 @@ using UnityEngine;
 public class DetectorStub {
   SocketStubClient stubClient;
 
+  // persistent state (store values when initiated, so that we can re-set them during reconnection)
+  int prev_camera_id = -1;
+  string prev_camera_name = "";
+
   public DetectorStub(string host) {
     stubClient = new SocketStubClient(host);
+    stubClient.ws.OnOpen += OnConnect;
   }
 
-  public async Task<int[]> setCamera(string camera_id) {
-    return await stubClient.call<int[]>("setCamera", camera_id);
+  // When the socket connection opens, re-set the detector to its previous state.
+  private void OnConnect(object sender, EventArgs e) {
+    if (prev_camera_id >= 0) setCamera(prev_camera_id);
+    else if (prev_camera_name.Length > 0) setCamera(prev_camera_name);
+  }
+
+  public async Task<int[]> setCamera(string camera_name) {
+    prev_camera_id = -1;
+    prev_camera_name = camera_name;
+    return await stubClient.call<int[]>("setCamera", camera_name);
   }
 
   public async Task<int[]> setCamera(int camera_id) {
+    prev_camera_id = camera_id;
+    prev_camera_name = "";
     return await stubClient.call<int[]>("setCamera", camera_id);
   }
 

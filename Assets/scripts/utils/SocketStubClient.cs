@@ -13,11 +13,13 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
+using System;
 
 public class SocketStubClient {
   string host;
-  WebSocket ws;
+  public WebSocket ws;
   Dictionary<int, TaskCompletionSource<JObject>> tasks;
+  DateTime lastConnectionAttempt;
 
   public SocketStubClient(string host) {
     // Connect to the socket server
@@ -29,6 +31,7 @@ public class SocketStubClient {
     // Initialize the dictionnary that will hold the pending tasks
     tasks = new Dictionary<int, TaskCompletionSource<JObject>>();
 
+    lastConnectionAttempt = DateTime.Now;
     // Start up
     ws.Connect();
   }
@@ -49,8 +52,15 @@ public class SocketStubClient {
     string s_request = JsonConvert.SerializeObject(request);
 
     tasks.Add(request.id, tcs);
-    // TODO [STABILITY] handle the 'CONNECTING' state
-    if (ws.ReadyState != WebSocketSharp.WebSocketState.Open) ws.Connect();
+
+    if (
+      ws.ReadyState != WebSocketSharp.WebSocketState.Open &&
+      ws.ReadyState != WebSocketSharp.WebSocketState.Connecting &&
+      (DateTime.Now - lastConnectionAttempt).TotalSeconds > 1) {
+        lastConnectionAttempt = DateTime.Now;
+        ws.Connect();
+    }
+    if (ws.ReadyState != WebSocketSharp.WebSocketState.Open) throw new StubException("socket not connected (yet)");
     ws.Send(s_request);
     
     JObject json_response = await tcs.Task;
@@ -84,4 +94,16 @@ class SocketStubResponse<T> {
   public int time;
   public string type;
   public T data;
+}
+
+public class StubException : Exception
+{
+    public StubException() {
+    }
+
+    public StubException(string message) : base(message){
+    }
+
+    public StubException(string message, Exception inner) : base(message, inner) {
+    }
 }

@@ -85,7 +85,10 @@ public class DetectorClient : MonoBehaviour {
                             rawValue = await detector.detect();
                         }
                         if (flip) rawValue = -rawValue;
-                    } catch (ArgumentNullException) {}
+                    } catch (ArgumentNullException) {
+                    } catch (StubException e) {
+                        Debug.LogException(e);
+                    }
                     break;
             }
             rawValue *= influence;
@@ -119,12 +122,12 @@ public class DetectorClient : MonoBehaviour {
                 inputMode = inputOptions[id];
                 break;
             case "video":
-                await detector.setCamera("emulator");
                 inputMode = "detector";
+                await detector.setCamera("emulator");
                 break;
             default:
-                await detector.setCamera(id);
                 inputMode = "detector";
+                await detector.setCamera(id);
                 break;
         }
     }
