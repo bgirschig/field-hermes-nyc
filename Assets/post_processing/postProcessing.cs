@@ -13,6 +13,23 @@ public class postProcessing : MonoBehaviour {
 	public Material material;
     public ColorGroup[] colorGroups;
 
+    public float offsetX {
+        get { return materialInstance.GetFloat("offsetX"); }
+        set { materialInstance.SetFloat("offsetX", value); }
+    }
+    public float offsetY {
+        get { return materialInstance.GetFloat("offsetY"); }
+        set { materialInstance.SetFloat("offsetY", value); }
+    }
+    public float scaleX {
+        get { return materialInstance.GetFloat("scaleX"); }
+        set { materialInstance.SetFloat("scaleX", value); }
+    }
+    public float scaleY {
+        get { return materialInstance.GetFloat("scaleY"); }
+        set { materialInstance.SetFloat("scaleY", value); }
+    }
+
     private Material materialInstance;
     private int _colorGroupIndex = 0;
 

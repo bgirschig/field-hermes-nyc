@@ -9,13 +9,14 @@ public enum DetectorMode { Video, Live, SineEmulator };
 public class DetectorClient : MonoBehaviour {
     DetectorStub detector;
     
-    public bool invert;
+    public bool flip;
+    public float influence = 1;
     public bool allow_concurrent_detections = false;
     public ColorChannel detectorColorChannel;
     public DetectorMode detectorMode = DetectorMode.Live;
     public Image debugImage;
 
-    List<string> inputOptions;
+    public List<string> inputOptions;
     string inputMode;
 
     [NonSerialized]
@@ -42,16 +43,11 @@ public class DetectorClient : MonoBehaviour {
         prevSpeeds.fill(0);
 
         WebCamDevice[] devices = WebCamTexture.devices;
-        Dropdown dropdown = GameObject.Find("camera select").GetComponentInChildren<Dropdown>();
-        dropdown.options.Clear();
         inputOptions = new List<string>();
         for (int i = 0; i < devices.Length; i++) inputOptions.Add(devices[i].name);
         inputOptions.Add("emulator");
         inputOptions.Add("video");
         inputOptions.Add("disabled");
-        dropdown.AddOptions(inputOptions);
-
-        selectInputOtion(0);
     }
 
     async void Update() {
@@ -70,12 +66,15 @@ public class DetectorClient : MonoBehaviour {
                     break;
                 case "emulator":
                     rawValue = Mathf.Sin(Time.time*2) * 2;
-                    if (invert) rawValue = -rawValue;
+                    if (flip) rawValue = -rawValue;
                     break;
                 case "detector":
                     try {
-                        if (debugImage) {
+                        if (debugImage && debugImage.isActiveAndEnabled) {
                             var (value, tex) = await detector.detectWithDebug();
+                            // TODO: [STABILITY] At this point, debugImage may be undefined (if the
+                            // game was stopped while detect() was running), but this serves as a
+                            // good reminder that we need to have deadlines on detections
                             debugImage.GetComponent<AspectRatioFitter>().aspectRatio = (float)tex.width / tex.height;
                             debugImage.sprite = Sprite.Create(
                                 tex,
@@ -85,10 +84,11 @@ public class DetectorClient : MonoBehaviour {
                         } else {
                             rawValue = await detector.detect();
                         }
-                        if (invert) rawValue = -rawValue;
+                        if (flip) rawValue = -rawValue;
                     } catch (ArgumentNullException) {}
                     break;
             }
+            rawValue *= influence;
         
             // Discard outlier points. Use previous value instead
             float rawSpeed = Mathf.Abs((rawValue - prevValue) / deltaT);
@@ -112,7 +112,7 @@ public class DetectorClient : MonoBehaviour {
         prevValue = rawValue;
     }
 
-    public async void selectInputOtion(int id) {
+    public async void selectInput(int id) {
         switch (inputOptions[id]) {
             case "disabled":
             case "emulator":
@@ -127,5 +127,11 @@ public class DetectorClient : MonoBehaviour {
                 inputMode = "detector";
                 break;
         }
+    }
+
+    public void selectInput(string name) {
+        int index = inputOptions.IndexOf(name);
+        if (index < 0) index = 0;
+        selectInput(index);
     }
 }

@@ -8,6 +8,12 @@
         maskColor ("mask", Color) = (255,0,0,255)
         width ("mask width", Float) = 1
         height ("mask height", Float) = 1
+        
+        offsetX ("offset X", Range(-1, 1)) = 0
+        offsetY ("offset Y", Range(-1, 1)) = 0
+        scaleX ("offset X", Range(0, 2)) = 1
+        scaleY ("offset Y", Range(0, 2)) = 1
+
     }
     SubShader
     {
@@ -45,15 +51,24 @@
             sampler2D _MainTex;
             float width;
             float height;
+            float offsetX;
+            float offsetY;
+            float scaleX;
+            float scaleY;
             float4 foreground;
             float4 background;
             float4 maskColor;
 
             fixed4 frag (v2f i) : SV_Target {
-                float2 newUv = i.uv - 0.5;
-                newUv.x /= width;
-                newUv.y /= height;
-                float distance = length(newUv);
+                // apply mapping offsets
+                i.uv.x = i.uv.x / scaleX - offsetX;
+                i.uv.y = i.uv.y / scaleY - offsetY;
+
+                // Figure out what to mask
+                float2 maskUv = i.uv - 0.5;
+                maskUv.x /= width;
+                maskUv.y /= height;
+                float distance = length(maskUv);
                 float mask = smoothstep(distance, distance+0.01, 0.5);
 
                 // Eureka test

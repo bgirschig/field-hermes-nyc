@@ -8,17 +8,16 @@ public class shootingStarSpawn : MonoBehaviour
     Vector2 intersection1;
     Vector2 intersection2;
     float frustum_radius;
+    public float spawn_interval = 15;
 
     // Distance from camera to spawned star
     float spawn_distance = 90;
-    float spawn_min_interval = 10;
-    float spawn_max_interval = 20;
     float next_spawn_time = 0;
 
     // Start is called before the first frame update
     void Start() {
         spawn();
-        next_spawn_time = Random.Range(spawn_min_interval, spawn_min_interval);
+        next_spawn_time = getNextSpawnTime();
     }
 
     // Update is called once per frame
@@ -26,8 +25,21 @@ public class shootingStarSpawn : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.S)) spawn();
         if (Time.time > next_spawn_time) {
             spawn();
-            next_spawn_time = Time.time + Random.Range(spawn_min_interval, spawn_min_interval);
+            next_spawn_time = getNextSpawnTime();
         }
+    }
+
+    // Finds out when the next shooting star should be spawned (based on spawn_interval, with some
+    // randomness)
+    float getNextSpawnTime() {
+        float spawn_min_interval = spawn_interval * 0.666f;
+        float spawn_max_interval = spawn_interval * 1.333f;
+        return Time.time + Random.Range(spawn_min_interval, spawn_min_interval);
+    }
+
+    public void setSpawnInterval(float value) {
+        spawn_interval = value;
+        next_spawn_time = getNextSpawnTime();
     }
 
     void spawn() {

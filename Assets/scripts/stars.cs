@@ -99,4 +99,9 @@ public class stars : MonoBehaviour {
     if (clamp) val = Mathf.Clamp(val, to1, to2);
     return val;
   }
+
+  public void setStarCount(int count) {
+    starCount = count;
+    Create();
+  }
 }
