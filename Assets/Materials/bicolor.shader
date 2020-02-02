@@ -56,13 +56,12 @@
                 float a = col.a;
 
                 float dist = i.vertex.z * _ProjectionParams.z;
-                float fog = smoothstep(.05, 0.0, dist);
+                float fog = smoothstep(fogDensity, 0.0, dist);
 
                 float luminance = 0.299*col.r + 0.587*col.g + 0.114*col.b;
                 col = luminance * foregroundCol + (1.0-luminance) * backgroundCol;
 
                 col = backgroundCol * fog + col * (1-fog);
-                // return float4(col.rgb, 1);
 
                 col.a = a;
                 return col;

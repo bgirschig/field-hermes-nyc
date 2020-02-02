@@ -14,6 +14,7 @@ Shader "Unlit/Particle_AdditiveSimple"
     LOD 100
     ZWrite Off
     Blend SrcAlpha OneMinusSrcAlpha
+    Cull Back
     Pass
     {
       CGPROGRAM
@@ -54,7 +55,8 @@ Shader "Unlit/Particle_AdditiveSimple"
         float fog = smoothstep(fogDensity, 0.0, dist);
 
         fixed4 col = tex2D(_MainTex, i.uv);
-        col.rgb = backgroundCol.rgb * fog + col.rgb * (1-fog);
+        // col.rgb = backgroundCol.rgb * fog + col.rgb * (1-fog);
+        col.a *= 1-fog;
 
         return col;
       }
