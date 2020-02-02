@@ -103,7 +103,7 @@ class Detector:
 
     if (frame is None):
       # loop if cap is a video
-      cap.set(cv2.CAP_PROP_POS_FRAMES, 0)
+      self.cap.set(cv2.CAP_PROP_POS_FRAMES, 0)
       ret, frame = self.cap.read()
     if (frame is None): raise Exception("could not capture a frame")
 
