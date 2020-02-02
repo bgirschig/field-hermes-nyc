@@ -53,18 +53,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\OptionsHandler.cs" />
-     <Compile Include="Assets\ShowValue.cs" />
      <Compile Include="Assets\post_processing\postProcessing.cs" />
      <Compile Include="Assets\scripts\AnimationSwingController.cs" />
      <Compile Include="Assets\scripts\DetectorClient.cs" />
      <Compile Include="Assets\scripts\DetectorStub.cs" />
      <Compile Include="Assets\scripts\Eureka.cs" />
+     <Compile Include="Assets\scripts\OptionsHandler.cs" />
      <Compile Include="Assets\scripts\gameHandler.cs" />
      <Compile Include="Assets\scripts\stars.cs" />
      <Compile Include="Assets\scripts\swingingCamera.cs" />
      <Compile Include="Assets\scripts\utils\AutoRotator.cs" />
      <Compile Include="Assets\scripts\utils\RollingArray.cs" />
+     <Compile Include="Assets\scripts\utils\ShowValue.cs" />
      <Compile Include="Assets\scripts\utils\SocketStubClient.cs" />
      <Compile Include="Assets\scripts\utils\linearMove.cs" />
      <Compile Include="Assets\various\prefabMakers\shooting star\ShootingStar.cs" />
