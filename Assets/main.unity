@@ -9269,6 +9269,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   active: 0
   controller: {fileID: 963194230}
+  shootingStarController: {fileID: 963194233}
 --- !u!1 &985634699
 GameObject:
   m_ObjectHideFlags: 0

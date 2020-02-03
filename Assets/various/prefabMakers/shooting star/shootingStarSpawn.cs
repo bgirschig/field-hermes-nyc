@@ -42,7 +42,7 @@ public class shootingStarSpawn : MonoBehaviour
         next_spawn_time = getNextSpawnTime();
     }
 
-    void spawn() {
+    public void spawn() {
         // Instantiate the star
         int prefabIndex = Random.Range(0, prefabs.Length);
         var instance = GameObject.Instantiate(prefabs[prefabIndex]);
