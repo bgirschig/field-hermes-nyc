@@ -55,6 +55,8 @@
   <ItemGroup>
      <Compile Include="Assets\post_processing\postProcessing.cs" />
      <Compile Include="Assets\scripts\AnimationSwingController.cs" />
+     <Compile Include="Assets\scripts\ControlRoom\ControlRoom.cs" />
+     <Compile Include="Assets\scripts\ControlRoom\SwingStatus.cs" />
      <Compile Include="Assets\scripts\DetectorClient.cs" />
      <Compile Include="Assets\scripts\DetectorStub.cs" />
      <Compile Include="Assets\scripts\Eureka.cs" />
@@ -67,6 +69,7 @@
      <Compile Include="Assets\scripts\utils\ShowValue.cs" />
      <Compile Include="Assets\scripts\utils\SocketStubClient.cs" />
      <Compile Include="Assets\scripts\utils\linearMove.cs" />
+     <Compile Include="Assets\scripts\utils\stringUtils.cs" />
      <Compile Include="Assets\various\prefabMakers\shooting star\ShootingStar.cs" />
      <Compile Include="Assets\various\prefabMakers\shooting star\ShootingStarEditor.cs" />
      <Compile Include="Assets\various\prefabMakers\shooting star\shootingStarSpawn.cs" />
