@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class SwingStatus : MonoBehaviour
 {
-    Transform mainSwing;
+    public GameObject mainSwing;
     Text text;
 
     float prevTime = 0;
@@ -33,8 +33,6 @@ public class SwingStatus : MonoBehaviour
     public float swingPosition {
         get { return prevSwingPosition; }
         set {
-            Debug.Log(text);
-            Debug.Log(text.text = "hi there");
             float now = Time.time;
             float deltaTime = now - prevTime;
             dataFramerate = 1/deltaTime;
@@ -48,7 +46,7 @@ public class SwingStatus : MonoBehaviour
 
             prevSwingPosition = value;
             prevTime = now;
-            mainSwing.rotation = Quaternion.Euler(0, 0, value * 30);
+            mainSwing.transform.rotation = Quaternion.Euler(0, 0, value * 30);
 
             updateDebug();
         }
@@ -64,7 +62,6 @@ public class SwingStatus : MonoBehaviour
 
     // Start is called before the first frame update
     void Start() {
-        mainSwing = transform.Find("main swing");
         text = GetComponentInChildren<Text>();
     }
 
