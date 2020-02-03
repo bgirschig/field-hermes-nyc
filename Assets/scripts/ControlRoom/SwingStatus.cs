@@ -25,7 +25,7 @@ public class SwingStatus : MonoBehaviour
     public float pathPosition {
         get { return _pathPosition; }
         set {
-            _pathPosition = value;
+            _pathPosition = value % 1;
             updateDebug();
         }
     }
