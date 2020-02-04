@@ -14,7 +14,10 @@ public class gameHandler : MonoBehaviour {
         var ctrl  = (Input.GetKey(KeyCode.RightControl) || Input.GetKey(KeyCode.LeftControl));
         var cmd = Input.GetKey(KeyCode.LeftCommand) || Input.GetKey(KeyCode.RightCommand);
         
-        if (ctrl && Input.GetKeyDown(KeyCode.F)) Screen.fullScreen = !Screen.fullScreen;
+        if (ctrl && Input.GetKeyDown(KeyCode.F)) {
+            Screen.fullScreen = !Screen.fullScreen;
+            Screen.SetResolution(Screen.currentResolution.width, Screen.currentResolution.height, FullScreenMode.ExclusiveFullScreen, 60);
+        }
         if (Input.GetKeyDown(KeyCode.M)) UI.SetActive(!UI.activeSelf);
     }
 }
