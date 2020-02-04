@@ -11,9 +11,9 @@ public class Eureka : MonoBehaviour
     float nextStarTime = 0;
     float starRate = 1f;
 
-    float blinkStartTime = 0;
-    float nextBlinkTime = 0;
-    float blinkRate = 1f;
+    float nextBlinkTime;
+    float stopTime;
+    float blinkRate;
     int nextColorGroup = 0;
 
     // Start is called before the first frame update
@@ -28,9 +28,10 @@ public class Eureka : MonoBehaviour
             controller.colorGroupIndex = nextColorGroup;
         } else if (Input.GetKeyUp(KeyCode.E) && !active) {
             active = true;
-            blinkRate = 1;
+            blinkRate = 5;
             starRate = 1;
             nextBlinkTime = Time.time + 60;
+            stopTime = Time.time + 63;
             nextColorGroup += 1;
         }
 
@@ -43,7 +44,10 @@ public class Eureka : MonoBehaviour
             if (Time.time > nextBlinkTime) {
                 controller.colorGroupIndex += 1;
                 nextBlinkTime = Time.time + 1/blinkRate;
-                blinkRate += 0.05f;
+                blinkRate += 1f;
+            }
+            if (Time.time > stopTime) {
+                active = false;
             }
         }
     }
