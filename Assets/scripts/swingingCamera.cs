@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using Cinemachine;
 
 public class swingingCamera : MonoBehaviour
@@ -10,14 +8,11 @@ public class swingingCamera : MonoBehaviour
     public AnimationCurve swingInfluence;
     public AnimationCurve travelSpeed;
 
-    CinemachineVirtualCamera camera;
     [HideInInspector]
     public CinemachineTrackedDolly dolly;
 
     // Start is called before the first frame update
     void Start() {
-        camera = GetComponent<CinemachineVirtualCamera>();
-        dolly = camera.GetCinemachineComponent<CinemachineTrackedDolly>();
     }
 
     // Update is called once per frame

@@ -18,8 +18,8 @@ public class ShootingStar : MonoBehaviour
 
         rotationAccumulator += Mathf.Abs(rotateSpeed);
 
-        // TODO: [PERFORMANCE] we could kill the shootingstar as soon as it leaves the screen.
-        // This is easier for now
+        // TODO: [PERFORMANCE] we could kill the shootingstar as soon as it leaves the screen. This
+        // is easier for now
         if (rotationAccumulator > 300) GameObject.Destroy(this.gameObject);
     }
 }

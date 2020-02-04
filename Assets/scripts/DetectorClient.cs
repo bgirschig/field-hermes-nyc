@@ -34,7 +34,7 @@ public class DetectorClient : MonoBehaviour {
     float prevValue = 0;
     float prevRawSpeed = -1;
 
-    async void Start() {
+    void Start() {
         detector = new DetectorStub("localhost:8765");
         
         prevValues = new RollingArrayFloat(5);

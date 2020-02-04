@@ -6,7 +6,6 @@ import math
 import urllib.request
 import os
 
-# TODO: [STABILITY] Select color channel for detection + have physical color on strings
 # TODO: [STABILITY] Detect lines, assuming we know (roughly) the line's origin (probably needs an editor)
 # TODO: [PERFORMANCE] Don't recompute "calibration metrics" on every frame
 

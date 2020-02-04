@@ -23,7 +23,6 @@ public class SocketStubClient {
 
   public SocketStubClient(string host) {
     // Connect to the socket server
-    // TODO [STABILITY] Auto-reconnect (check out https://github.com/Marfusios/websocket-client)
     this.host = host;
     ws = new WebSocket(string.Format("ws://{0}", host));
     ws.OnMessage += handleMessage;
@@ -65,7 +64,8 @@ public class SocketStubClient {
     
     JObject json_response = await tcs.Task;
     SocketStubResponse<T> response = json_response.ToObject<SocketStubResponse<T>>();
-    
+    var r = new SocketStubResponse<float>();
+    r.id = 3;
     return response.data;
   }
 }
@@ -90,10 +90,16 @@ class SocketStubRequest {
 }
 
 class SocketStubResponse<T> {
+  // because we're not creating any instance of this class manually (using newtonsoft json instead),
+  // we're getting 0649 warning about properties not being used
+  #pragma warning disable 0649
+
   public int id;
   public int time;
   public string type;
   public T data;
+  
+  #pragma warning restore 0649
 }
 
 public class StubException : Exception

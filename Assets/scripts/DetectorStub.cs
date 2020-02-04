@@ -22,9 +22,9 @@ public class DetectorStub {
   }
 
   // When the socket connection opens, re-set the detector to its previous state.
-  private void OnConnect(object sender, EventArgs e) {
-    if (prev_camera_id >= 0) setCamera(prev_camera_id);
-    else if (prev_camera_name.Length > 0) setCamera(prev_camera_name);
+  private async void OnConnect(object sender, EventArgs e) {
+    if (prev_camera_id >= 0) await setCamera(prev_camera_id);
+    else if (prev_camera_name.Length > 0) await setCamera(prev_camera_name);
   }
 
   public async Task<int[]> setCamera(string camera_name) {

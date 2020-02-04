@@ -35,7 +35,6 @@ public class postProcessing : MonoBehaviour {
 
     int lastScreenWidth = 0;
     int lastScreenHeight = 0;
-    bool initialized = false;
 
     public int colorGroupIndex {
         get { return _colorGroupIndex; }

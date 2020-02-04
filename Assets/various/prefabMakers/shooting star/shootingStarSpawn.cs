@@ -78,15 +78,7 @@ public class shootingStarSpawn : MonoBehaviour
         instance.transform.localRotation = Quaternion.Euler(0, 0, angle2 * Mathf.Rad2Deg);
     }
 
-    // void OnDrawGizmos() {
-    //     // Draw a yellow sphere at the transform's position
-    //     Gizmos.color = Color.blue;
-    //     Gizmos.DrawSphere(transform.position, frustum_radius);
-    // }
-
     // Find the points where the two circles intersect.
-    // TODO: [PERFORMANCE] This method is more generic than it needs to be. In our case, one
-    // circle's center is always on the other circle
     private int FindCircleCircleIntersections(
         Vector2 c0, float radius0,
         Vector2 c1, float radius1,

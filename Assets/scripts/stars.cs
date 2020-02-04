@@ -4,7 +4,7 @@ public class stars : MonoBehaviour {
   public int starCount = 1000;
 
   private ParticleSystem.Particle[] points;
-  private ParticleSystem particleSystem;
+  private ParticleSystem star_particleSystem;
 
   private float minX;
   private float maxX;
@@ -44,8 +44,8 @@ public class stars : MonoBehaviour {
       points[i].rotation = Random.Range(0, 90);
     }
 
-    particleSystem = gameObject.GetComponent<ParticleSystem>();
-    particleSystem.SetParticles(points, points.Length);
+    star_particleSystem = gameObject.GetComponent<ParticleSystem>();
+    star_particleSystem.SetParticles(points, points.Length);
   }
 
   void Start() {
@@ -64,9 +64,6 @@ public class stars : MonoBehaviour {
 
     Vector3 relativePos;
 
-    // TODO: [PERFORMANCE] check out IJobParticleSystemParallelFor.Execute:
-    // https://docs.unity3d.com/2019.3/Documentation/ScriptReference/ParticleSystemJobs.IJobParticleSystemParallelFor.Execute.html?_ga=2.8315248.354632520.1578748773-404527570.1578568379
-
     for (int i = 0; i < starCount; i++) {      
       relativePos = Camera.main.worldToCameraMatrix.MultiplyPoint(points[i].position);
 
@@ -79,12 +76,9 @@ public class stars : MonoBehaviour {
       if (relativePos.z < minZ) relativePos.z += frustumDepth;
       if (relativePos.z > maxZ) relativePos.z -= frustumDepth;
 
-      // TODO: [FEATURE] scale down particles before the far plane, to avoid "popping" stars
-      // points[i].size = points[i].startSize;
-
       points[i].position = Camera.main.cameraToWorldMatrix.MultiplyPoint(relativePos);  
     }
-    particleSystem.SetParticles(points, points.Length);
+    star_particleSystem.SetParticles(points, points.Length);
   }
 
   void Update() {
