@@ -12,15 +12,16 @@ public class OptionsHandler : MonoBehaviour
     public stars starHandler;
     public shootingStarSpawn shootingStarHandler;
     public postProcessing mappingHandler;
+    public AnimationSwingController swingController;
 
     [Header("Detector config inputs")]
     public Dropdown detectorInput;
     public Toggle flipValues;
     public Slider influence;
-    public Slider forwardAmount;
     [Header("Scene config inputs")]
     public Slider starCount;
     public Slider shootingStarInterval;
+    public Slider autoAdvanceSpeed;
     [Header("Mapping config inputs")]
     public Slider offsetX;
     public Slider offsetY;
@@ -50,6 +51,7 @@ public class OptionsHandler : MonoBehaviour
         // Scene config
         initOption("scene.starCount", starCount, (int val) => starHandler.setStarCount(val), 3000);
         initOption("scene.shootingStarInterval", shootingStarInterval, (float val) => shootingStarHandler.setSpawnInterval(val), 15);
+        initOption("scene.autoAdvanceSpeed", autoAdvanceSpeed, (float val) => swingController.autoAdvanceSpeed = val, 0.2f);
         
         // video output config
         initOption("mapping.offsetX", offsetX, (float val) => mappingHandler.offsetX = val, 0);

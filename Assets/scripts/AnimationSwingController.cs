@@ -9,6 +9,7 @@ public class AnimationSwingController : MonoBehaviour
     public float startPosition;
 
     private double time;
+    public float autoAdvanceSpeed = 0.2f;
 
     // Start is called before the first frame update
     void Start() {
@@ -18,7 +19,7 @@ public class AnimationSwingController : MonoBehaviour
     // Update is called once per frame
     void Update() {
         // auto-advance
-        time += 0.2 * Time.deltaTime;
+        time += autoAdvanceSpeed * Time.deltaTime;
 
         if (detectorClient.speed > 0) time += detectorClient.speed * 0.02;
         else time += detectorClient.speed * 0.01;
