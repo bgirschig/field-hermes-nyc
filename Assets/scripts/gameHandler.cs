@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 
 public class gameHandler : MonoBehaviour {
@@ -19,5 +19,6 @@ public class gameHandler : MonoBehaviour {
             Screen.SetResolution(Screen.currentResolution.width, Screen.currentResolution.height, FullScreenMode.ExclusiveFullScreen, 60);
         }
         if (Input.GetKeyDown(KeyCode.M)) UI.SetActive(!UI.activeSelf);
+        if (Input.GetKeyDown(KeyCode.C)) SceneManager.LoadScene("ControlRoom");
     }
 }

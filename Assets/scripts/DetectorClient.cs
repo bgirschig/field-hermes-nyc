@@ -22,6 +22,8 @@ public class DetectorClient : MonoBehaviour {
     [NonSerialized]
     public float position;
     [NonSerialized]
+    public float normalized_position;
+    [NonSerialized]
     public float pPosition;
     [NonSerialized]
     public float speed;
@@ -65,7 +67,7 @@ public class DetectorClient : MonoBehaviour {
                 case "disabled":
                     break;
                 case "emulator":
-                    rawValue = Mathf.Sin(Time.time*2) * 2;
+                    rawValue = Mathf.Sin(Time.time*2);
                     if (flip) rawValue = -rawValue;
                     break;
                 case "detector":
@@ -108,6 +110,7 @@ public class DetectorClient : MonoBehaviour {
 
         prevValues.Add(rawValue);
         position = prevValues.average();
+        normalized_position = position / influence;
 
         prevSpeeds.Add((position - prevValue) / deltaT);
         speed = prevSpeeds.average();

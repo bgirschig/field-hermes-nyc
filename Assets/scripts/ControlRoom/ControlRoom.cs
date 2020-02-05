@@ -3,6 +3,7 @@ using UnityEngine;
 using WebSocketSharp;
 using WebSocketSharp.Server;
 using Newtonsoft.Json;
+using UnityEngine.SceneManagement;
 
 public class SocketService : WebSocketBehavior {
     protected override void OnMessage (MessageEventArgs e) {
@@ -14,6 +15,8 @@ struct SwingStatusData {
     public float pathPosition;
     public bool dirty;
 }
+
+// TODO: [CLEAN] Move this to its own file
 struct SocketMessage {
     public int swing_id;
     public float swingPosition;
@@ -24,13 +27,13 @@ public class ControlRoom : MonoBehaviour {
     private WebSocketServer wssv;
     private WebSocket ws;
 
-    public List<SwingStatus> swings;
-
+    SwingStatus[] swings;
     SwingStatusData[] swingStatusDatas;
     float value = 0;
 
     void Start() {
-        swingStatusDatas = new SwingStatusData[swings.Count];
+        swings = FindObjectsOfType<SwingStatus>();
+        swingStatusDatas = new SwingStatusData[swings.Length];
 
         // socket server
         wssv = new WebSocketServer("ws://0.0.0.0:4649");
@@ -49,6 +52,8 @@ public class ControlRoom : MonoBehaviour {
     }
  
     void Update() {
+        if (Input.GetKeyDown(KeyCode.C)) SceneManager.LoadScene("main");
+
         for (int i = 0; i < swingStatusDatas.Length; i++) {
             if (!swingStatusDatas[i].dirty) continue;
             swings[i].pathPosition = swingStatusDatas[i].pathPosition;
@@ -58,6 +63,11 @@ public class ControlRoom : MonoBehaviour {
     }
  
     void OnApplicationQuit() {
+        ws.Close();
+        wssv.Stop();
+    }
+
+    void OnDestroy() {
         ws.Close();
         wssv.Stop();
     }

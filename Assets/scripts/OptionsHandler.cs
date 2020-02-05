@@ -13,6 +13,7 @@ public class OptionsHandler : MonoBehaviour
     public shootingStarSpawn shootingStarHandler;
     public postProcessing mappingHandler;
     public AnimationSwingController swingController;
+    public RemoteBridge remoteBridge;
 
     [Header("Detector config inputs")]
     public Dropdown detectorInput;
@@ -27,6 +28,8 @@ public class OptionsHandler : MonoBehaviour
     public Slider offsetY;
     public Slider scaleX;
     public Slider scaleY;
+    [Header("Remote")]
+    public InputField remoteHost;
     [Header("Buttons")]
     public Button saveButton;
     public Button resetButton;
@@ -58,6 +61,9 @@ public class OptionsHandler : MonoBehaviour
         initOption("mapping.offsetY", offsetY, (float val) => mappingHandler.offsetY = val, 0);
         initOption("mapping.scaleX", scaleX, (float val) => mappingHandler.scaleX = val, 1);
         initOption("mapping.scaleY", scaleY, (float val) => mappingHandler.scaleY = val, 1);
+
+        // remote config
+        initOption("remote.host", remoteHost, (string val) => remoteBridge.socketHost = val, "localhost");
     }
 
     // Initialize a float config option: load from playerprefs, default value, update the global
@@ -95,6 +101,25 @@ public class OptionsHandler : MonoBehaviour
             resetButton.interactable = true;
             onChange.Invoke((int)input.value);
             PlayerPrefs.SetInt(name, (int)input.value);
+        });
+    }
+
+    // Initialize a string config option: load from playerprefs, default value, update the global
+    // 'resettable' and 'saveable' state, and change callback
+    void initOption(string name, InputField input, UnityAction<string> onChange, string defaultValue="") {
+        if (!PlayerPrefs.HasKey(name)) PlayerPrefs.SetString(name, defaultValue);
+        
+        string value = PlayerPrefs.GetString(name);
+        if (value != defaultValue) resetButton.interactable = true;
+
+        input.text = value;
+        onChange.Invoke(value);
+        
+        input.onValueChanged.AddListener(delegate {
+            saveButton.interactable = true;
+            resetButton.interactable = true;
+            onChange.Invoke(input.text);
+            PlayerPrefs.SetString(name, input.text);
         });
     }
 
