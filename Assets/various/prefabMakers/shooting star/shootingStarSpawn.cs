@@ -70,11 +70,21 @@ public class shootingStarSpawn : MonoBehaviour
             new Vector2(), frustum_radius,
             spawn_position, instance.transform.GetChild(0).localPosition.magnitude,
             out intersection1, out intersection2);
+        
+        // TODO: [BUG] This is a very dirty fix to avoid fucked up star orientation: sometimes, we
+        // don't get an intersection from the method above, so we simply cancel the star creation.
+        // There should be no way to not have an intersection. Find out where this comes from.
+        if (float.IsNaN(intersection2.x) || float.IsNaN(intersection2.y)) {
+            GameObject.Destroy(instance);
+            return;
+        }
+        
         // The intersection of the two circles (camera view and shooting star path) produces 2
         // points, but we are only interested in the second one (Taking the first point would put
         // the comet's tail inside the viewport, moving outside)
         Vector2 delta2 = intersection2 - (Vector2)spawn_position;
         float angle2 = Mathf.Atan2(delta2.y, delta2.x);
+
         instance.transform.localRotation = Quaternion.Euler(0, 0, angle2 * Mathf.Rad2Deg);
     }
 

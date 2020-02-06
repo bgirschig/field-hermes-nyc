@@ -1,26 +1,16 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using WebSocketSharp;
 using WebSocketSharp.Server;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using UnityEngine.SceneManagement;
+using System.Collections.Generic;
+using MessageProtos;
 
 public class SocketService : WebSocketBehavior {
     protected override void OnMessage (MessageEventArgs e) {
         Sessions.Broadcast(e.Data);
     }
-}
-struct SwingStatusData {
-    public float swingPosition;
-    public float pathPosition;
-    public bool dirty;
-}
-
-// TODO: [CLEAN] Move this to its own file
-struct SocketMessage {
-    public int swing_id;
-    public float swingPosition;
-    public float pathPosition;
 }
 
 public class ControlRoom : MonoBehaviour {
@@ -28,12 +18,11 @@ public class ControlRoom : MonoBehaviour {
     private WebSocket ws;
 
     SwingStatus[] swings;
-    SwingStatusData[] swingStatusDatas;
-    float value = 0;
+    private Queue<MessageProtos.SwingState> pendingMessages;
 
     void Start() {
         swings = FindObjectsOfType<SwingStatus>();
-        swingStatusDatas = new SwingStatusData[swings.Length];
+        pendingMessages = new Queue<SwingState>();
 
         // socket server
         wssv = new WebSocketServer("ws://0.0.0.0:4649");
@@ -43,23 +32,21 @@ public class ControlRoom : MonoBehaviour {
         // Socket client
         ws = new WebSocket(string.Format("ws://localhost:4649/"));
         ws.OnMessage += (object sender, MessageEventArgs e) => {
-            SocketMessage payload = JsonConvert.DeserializeObject<SocketMessage>(e.Data);
-            swingStatusDatas[payload.swing_id].swingPosition = payload.swingPosition;
-            swingStatusDatas[payload.swing_id].pathPosition = payload.pathPosition;
-            swingStatusDatas[payload.swing_id].dirty = true;
+            var message = JsonConvert.DeserializeObject<JObject>(e.Data);
+            bool isValidMessage = (string)message["messageType"] == "SwingState";
+            if (isValidMessage) pendingMessages.Enqueue(message.ToObject<SwingState>());
         };
         ws.Connect();
     }
  
     void Update() {
         if (Input.GetKeyDown(KeyCode.C)) SceneManager.LoadScene("main");
+        while (pendingMessages.Count > 0) handleMessage(pendingMessages.Dequeue());
+    }
 
-        for (int i = 0; i < swingStatusDatas.Length; i++) {
-            if (!swingStatusDatas[i].dirty) continue;
-            swings[i].pathPosition = swingStatusDatas[i].pathPosition;
-            swings[i].swingPosition = swingStatusDatas[i].swingPosition;
-            swingStatusDatas[i].dirty = false;            
-        }
+    void handleMessage(SwingState message) {
+        swings[message.swing_id].pathPosition = message.pathPosition;
+        swings[message.swing_id].swingPosition = message.swingPosition;
     }
  
     void OnApplicationQuit() {

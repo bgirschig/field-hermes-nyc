@@ -21,12 +21,11 @@ public class Eureka : MonoBehaviour
         
     }
 
-    // Update is called once per frame
-    void Update() {
-        if (Input.GetKeyUp(KeyCode.E) && active) {
+    public void toggle() {
+        if (active) {
             active = false;
             controller.colorGroupIndex = nextColorGroup;
-        } else if (Input.GetKeyUp(KeyCode.E) && !active) {
+        } else {
             active = true;
             blinkRate = 5;
             starRate = 1;
@@ -34,6 +33,11 @@ public class Eureka : MonoBehaviour
             stopTime = Time.time + 63;
             nextColorGroup += 1;
         }
+    }
+
+    // Update is called once per frame
+    void Update() {
+        if (Input.GetKeyUp(KeyCode.E)) toggle();
 
         if (active) {
             if (Time.time > nextStarTime) {

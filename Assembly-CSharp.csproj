@@ -63,6 +63,8 @@
      <Compile Include="Assets\scripts\OptionsHandler.cs" />
      <Compile Include="Assets\scripts\RemoteBridge.cs" />
      <Compile Include="Assets\scripts\gameHandler.cs" />
+     <Compile Include="Assets\scripts\messageProtos\SwingAction.cs" />
+     <Compile Include="Assets\scripts\messageProtos\SwingState.cs" />
      <Compile Include="Assets\scripts\stars.cs" />
      <Compile Include="Assets\scripts\swingingCamera.cs" />
      <Compile Include="Assets\scripts\utils\AutoRotator.cs" />

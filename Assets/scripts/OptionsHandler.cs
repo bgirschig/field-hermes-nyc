@@ -63,7 +63,7 @@ public class OptionsHandler : MonoBehaviour
         initOption("mapping.scaleY", scaleY, (float val) => mappingHandler.scaleY = val, 1);
 
         // remote config
-        initOption("remote.host", remoteHost, (string val) => remoteBridge.socketHost = val, "localhost");
+        // initOption("remote.host", remoteHost, (string val) => remoteBridge.socketHost = val, "localhost");
     }
 
     // Initialize a float config option: load from playerprefs, default value, update the global
