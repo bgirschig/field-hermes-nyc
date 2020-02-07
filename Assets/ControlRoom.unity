@@ -1099,6 +1099,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e6a76855b88b46619b0b0aa32eab7b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  swingGroup: {fileID: 572731487}
 --- !u!1001 &1970595644
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -6,6 +6,7 @@ using Newtonsoft.Json.Linq;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using MessageProtos;
+using UnityEngine.UI;
 
 public class SocketService : WebSocketBehavior {
     protected override void OnMessage (MessageEventArgs e) {
@@ -14,6 +15,8 @@ public class SocketService : WebSocketBehavior {
 }
 
 public class ControlRoom : MonoBehaviour {
+    public HorizontalLayoutGroup swingGroup;
+
     private WebSocketServer wssv;
     private WebSocket ws;
 
@@ -21,7 +24,7 @@ public class ControlRoom : MonoBehaviour {
     private Queue<MessageProtos.SwingState> pendingMessages;
 
     void Start() {
-        swings = FindObjectsOfType<SwingStatus>();
+        swings = swingGroup.GetComponentsInChildren<SwingStatus>();
         pendingMessages = new Queue<SwingState>();
 
         // socket server
