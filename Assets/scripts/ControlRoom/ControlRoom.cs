@@ -25,6 +25,8 @@ public class ControlRoom : MonoBehaviour {
 
     void Start() {
         swings = swingGroup.GetComponentsInChildren<SwingStatus>();
+        for (int i = 0; i < swings.Length; i++) swings[i].swing_id = i;
+        
         pendingMessages = new Queue<SwingState>();
 
         // socket server
@@ -51,6 +53,10 @@ public class ControlRoom : MonoBehaviour {
         swings[message.swing_id].updateState(message);
     }
  
+    public void send(string message) {
+        ws.Send(message);
+    }
+
     void OnApplicationQuit() {
         ws.Close();
         wssv.Stop();

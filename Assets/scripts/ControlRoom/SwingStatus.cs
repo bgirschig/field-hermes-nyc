@@ -1,11 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using MessageProtos;
+using Newtonsoft.Json;
 
 public class SwingStatus : MonoBehaviour
 {
+    public int swing_id = -1;
     public GameObject mainSwing;
     Text text;
 
@@ -14,6 +14,7 @@ public class SwingStatus : MonoBehaviour
     float min = 0;
     float max = 0;
     SwingState current_state;
+    ControlRoom controlRoom;
 
     float range {
         get { return max - min; }
@@ -47,9 +48,17 @@ public class SwingStatus : MonoBehaviour
         ).Trim();
     }
 
+    public void sendControl(string action) {
+        var message = new SwingControl();
+        message.swing_id = swing_id;
+        message.action = action;
+        controlRoom.send(JsonConvert.SerializeObject(message));
+    }
+
     // Start is called before the first frame update
     void Start() {
         text = GetComponentInChildren<Text>();
+        controlRoom = FindObjectOfType<ControlRoom>();
     }
 
     // Update is called once per frame

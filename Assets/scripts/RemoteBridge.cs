@@ -93,7 +93,7 @@ public class RemoteBridge : MonoBehaviour
     void HandleMessage(SwingControl message) {
         if (message.swing_id != ID) return;
         
-        if (message.action == "ShootingStar") shootingStarController.spawn();
+        if (message.action == "shooting_star") shootingStarController.spawn();
         else if (message.action == "eureka") eurekaController.toggle();
         else Debug.Log("Action not found");
     }
