@@ -22,7 +22,7 @@ public class DetectorClient : MonoBehaviour {
     [NonSerialized]
     public float position;
     [NonSerialized]
-    public float normalized_position;
+    public float detector_value;
     [NonSerialized]
     public float pPosition;
     [NonSerialized]
@@ -93,6 +93,7 @@ public class DetectorClient : MonoBehaviour {
                     }
                     break;
             }
+            detector_value = rawValue;
             rawValue *= influence;
         
             // Discard outlier points. Use previous value instead
@@ -110,7 +111,6 @@ public class DetectorClient : MonoBehaviour {
 
         prevValues.Add(rawValue);
         position = prevValues.average();
-        normalized_position = position / influence;
 
         prevSpeeds.Add((position - prevValue) / deltaT);
         speed = prevSpeeds.average();

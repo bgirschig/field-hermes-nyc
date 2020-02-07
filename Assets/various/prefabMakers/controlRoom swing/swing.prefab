@@ -67,7 +67,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: 4af4453efe442406ea4dccfe8dcddeff, type: 3}
-    m_FontSize: 14
+    m_FontSize: 13
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 1
@@ -78,12 +78,10 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: '<b>SWG</b> -0.00  <b>RNG</b> 0.000
+  m_Text: '<b>SWG</b> -0.00  <b>RNG</b> 0.000  <b>SPD</b> +0.00
 
-    <b>SPD</b> +0.00  <b>CNT</b> 00000
-
-    <b>FPS</b>
-    00.00  <b>POS</b> 00.0%'
+    <b>CNT</b> 00000 
+    <b>FPS</b> 00.00  <b>POS</b> 00.0%'
 --- !u!1 &6288127185083174212
 GameObject:
   m_ObjectHideFlags: 0

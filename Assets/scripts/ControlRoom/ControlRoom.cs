@@ -45,8 +45,7 @@ public class ControlRoom : MonoBehaviour {
     }
 
     void handleMessage(SwingState message) {
-        swings[message.swing_id].pathPosition = message.pathPosition;
-        swings[message.swing_id].swingPosition = message.swingPosition;
+        swings[message.swing_id].updateState(message);
     }
  
     void OnApplicationQuit() {

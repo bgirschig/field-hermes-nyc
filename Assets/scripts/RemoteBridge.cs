@@ -59,7 +59,9 @@ public class RemoteBridge : MonoBehaviour
         var data = new SwingState();
         data.swing_id = ID;
         data.pathPosition = (float)(swingController.director.time / swingController.director.duration);
-        data.swingPosition = detectorClient.normalized_position;
+        data.swingPosition = detectorClient.detector_value;
+        data.swingSpeed = detectorClient.speed;
+        data.fps = 1 / Time.deltaTime;
         ws.Send(JsonConvert.SerializeObject(data));
         nextUpdateTime = Time.time + 1 / update_rate;
     }
