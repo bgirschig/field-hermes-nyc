@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="main.css">
+</head>
+<body>
+  <div class="actions">
+    <button class="actionBtn" data-action="setActive" data-value="true">activate</button>
+    <button class="actionBtn" data-action="setActive" data-value="false">deactivate</button><br>
+    <button class="actionBtn" data-action="setDebug" data-value="true">enable debug</button>
+    <button class="actionBtn" data-action="setDebug" data-value="false">disable debug</button><br>
+    <input type="text" id="cameraName" value="0">
+    <button class="actionBtn" data-action="setCamera" data-valueTarget="#cameraName">set camera</button>
+  </div>
+  <div class="feedback">
+    <img src="" id="debugImg">
+    <div class="marker"></div>
+  </div>
+  <div id="maskEditor">
+    <canvas></canvas>
+    <div class="cursor"></div>
+    <div class="controls">
+      <button data-action="save">save</button>
+    </div>
+  </div>
+
+  <script src="main.js" type="module"></script>
+</body>
+</html>

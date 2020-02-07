@@ -12,5 +12,5 @@ obj
 *.pyc
 detector/build
 detector/dist
-detector/env
 detector/mask.png
+env/

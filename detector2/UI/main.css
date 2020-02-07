@@ -1,0 +1,13 @@
+@import url(mask.css);
+
+.marker {
+  background-color: red;
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  left: 50%;
+  top: 0;
+}
+#debugImg {
+  width: 100%;
+}
