@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class gameHandler : MonoBehaviour {
     GameObject UI;
@@ -13,24 +14,23 @@ public class gameHandler : MonoBehaviour {
     // Update is called once per frame
     void Update() {
         var ctrl  = Input.GetKey(KeyCode.RightControl) || Input.GetKey(KeyCode.LeftControl);
+        var maj = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
 
-        if (ctrl && Input.GetKeyDown(KeyCode.F)) {
-            Screen.fullScreen = !Screen.fullScreen;
-            if (Screen.fullScreen) {
-                Screen.SetResolution(
-                    Screen.currentResolution.width,
-                    Screen.currentResolution.height,
-                    FullScreenMode.FullScreenWindow,
-                    60);
-            } else {
-                Screen.SetResolution(
-                    Screen.currentResolution.width,
-                    Screen.currentResolution.height,
-                    false
-                );
-            }
-        }
+        if ((maj || ctrl) && Input.GetKeyDown(KeyCode.F)) StartCoroutine(setFullscreen(!Screen.fullScreen));
         if (ctrl && Input.GetKeyDown(KeyCode.M)) UI.SetActive(!UI.activeSelf);
         if (ctrl && Input.GetKeyDown(KeyCode.C)) SceneManager.LoadScene("ControlRoom");
+    }
+
+    private IEnumerator setFullscreen(bool fullscreen) {
+        Screen.fullScreen = fullscreen;
+
+        yield return new WaitForEndOfFrame();
+        yield return new WaitForEndOfFrame();
+
+        Screen.SetResolution(
+            Display.main.systemWidth,
+            Display.main.systemHeight,
+            Screen.fullScreen
+        );
     }
 }
