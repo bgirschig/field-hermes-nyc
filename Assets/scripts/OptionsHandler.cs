@@ -30,6 +30,7 @@ public class OptionsHandler : MonoBehaviour
     public Slider scaleY;
     [Header("Remote")]
     public InputField remoteHost;
+    public InputField deviceID;
     [Header("Buttons")]
     public Button saveButton;
     public Button resetButton;
@@ -63,7 +64,8 @@ public class OptionsHandler : MonoBehaviour
         initOption("mapping.scaleY", scaleY, (float val) => mappingHandler.scaleY = val, 1);
 
         // remote config
-        // initOption("remote.host", remoteHost, (string val) => remoteBridge.socketHost = val, "localhost");
+        initOption("remote.host", remoteHost, (string val) => remoteBridge.socketHost = val, "localhost");
+        initOption("remote.deviceID", deviceID, (string val) => remoteBridge.ID = int.Parse(val), "0");
     }
 
     // Initialize a float config option: load from playerprefs, default value, update the global
@@ -115,7 +117,7 @@ public class OptionsHandler : MonoBehaviour
         input.text = value;
         onChange.Invoke(value);
         
-        input.onValueChanged.AddListener(delegate {
+        input.onEndEdit.AddListener(delegate {
             saveButton.interactable = true;
             resetButton.interactable = true;
             onChange.Invoke(input.text);

@@ -85,6 +85,7 @@ public class DetectorClient : MonoBehaviour {
                 break;
         }
         prevRawValue = rawValue;
+        detector_value = rawValue;
 
         position = rawValue * influence * (flip ? -1 : 1);
         speed = rawSpeed * influence * (flip ? -1 : 1);

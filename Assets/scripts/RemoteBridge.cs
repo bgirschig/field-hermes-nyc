@@ -8,7 +8,7 @@ using MessageProtos;
 public class RemoteBridge : MonoBehaviour
 {
     private int port = 4649;
-    private float update_rate = 10;
+    private float update_rate = 20;
 
     private string _socketHost = "localhost";
     private WebSocket ws;
@@ -78,9 +78,9 @@ public class RemoteBridge : MonoBehaviour
 
         if (ws != null) ws.Close();
 
+        Debug.Log("tryConnect " + url);
         ws = new WebSocket(url);
         ws.OnMessage += (object sender, MessageEventArgs e) => {
-            Debug.Log(e.Data);
             var message = JsonConvert.DeserializeObject<JObject>(e.Data);
             bool isValidMessage = (string)message["messageType"] == "SwingControl";
             if (isValidMessage) pendingMessages.Enqueue(message.ToObject<SwingControl>());
