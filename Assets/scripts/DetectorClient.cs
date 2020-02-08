@@ -14,7 +14,6 @@ public class DetectorClient : MonoBehaviour {
     public bool allow_concurrent_detections = false;
     public ColorChannel detectorColorChannel;
     public DetectorMode detectorMode = DetectorMode.Live;
-    public Image debugImage;
 
     public List<string> inputOptions;
     string inputMode;
