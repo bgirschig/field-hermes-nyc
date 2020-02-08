@@ -8,7 +8,7 @@ const pendingMessages = [];
 
 socket.onmessage = e => {
   const data = JSON.parse(e.data);
-  eventHandler.invoke(data.type, data.value);
+  eventHandler.invoke(data.type, data.value || data.arrayValue);
 };
 socket.onopen = () => {
   let message;
@@ -36,7 +36,6 @@ function sendAction(action, value="") {
     pendingMessages.push(message);
   }
 }
-window.sendAction = sendAction;
 
 const out = {
   socket,

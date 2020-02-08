@@ -10,21 +10,27 @@ public class AnimationSwingController : MonoBehaviour
 
     private double time;
     public float autoAdvanceSpeed = 0.2f;
+    
+    private float currentVelocity = 0;
+    private double targetTime = 0;
 
     // Start is called before the first frame update
     void Start() {
         time = startPosition * director.duration;
+        targetTime = startPosition * director.duration;
     }
 
     // Update is called once per frame
     void Update() {
         // auto-advance
-        time += autoAdvanceSpeed * Time.deltaTime;
+        targetTime += autoAdvanceSpeed * Time.deltaTime;
 
-        if (detectorClient.speed > 0) time += detectorClient.speed * 0.02;
-        else time += detectorClient.speed * 0.01;
-        time = time % director.duration;
-        if (time < 0) time += director.duration;
-        director.time = time;
+        if (detectorClient.speed > 0) targetTime += detectorClient.speed * 0.02;
+        else targetTime += detectorClient.speed * 0.01;
+        targetTime = targetTime % director.duration;
+        if (targetTime < 0) targetTime += director.duration;
+
+        time = Mathf.SmoothDamp((float)director.time, (float)targetTime, ref currentVelocity, 0.3f);
+        director.time = targetTime;
     }
 }

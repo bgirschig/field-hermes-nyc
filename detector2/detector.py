@@ -114,6 +114,8 @@ def getCameraInfo():
   return camera_info
 
 def getCurrentMask():
+  if currentMask is None: return None
+  if currentMask.shape[:2] != camera_info[:2]: return None
   return currentMask * 255
 
 def set_mask(dataUrl):

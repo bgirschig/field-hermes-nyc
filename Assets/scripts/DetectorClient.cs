@@ -7,7 +7,7 @@ public enum ColorChannel { Red, Green, Blue };
 public enum DetectorMode { Video, Live, SineEmulator };
 
 public class DetectorClient : MonoBehaviour {
-    DetectorStub detector;
+    DetectorStub stub;
     
     public bool flip;
     public float influence = 1;
@@ -33,12 +33,25 @@ public class DetectorClient : MonoBehaviour {
     RollingArrayFloat prevValues;
     RollingArrayFloat prevSpeeds;
     
-    float prevValue = 0;
-    float prevRawSpeed = -1;
+    float prevRawValue = 0;
+    float detectedValue = 0;
+    float detectedSpeed = 0;
+
+    bool _debug;
+    public bool debug {
+        get { return _debug; }
+        set { stub.sendAction<bool>("setDebug", value); }
+    }
+    bool _active;
+    public bool active {
+        get { return _active; }
+        set { stub.sendAction<bool>("setActive", value); }
+    }
 
     void Start() {
-        detector = new DetectorStub("localhost:8765");
-        
+        stub = new DetectorStub("localhost:9000");
+        stub.onValue += onValue;
+
         prevValues = new RollingArrayFloat(5);
         prevSpeeds = new RollingArrayFloat(5);
         prevValues.fill(0);
@@ -52,73 +65,41 @@ public class DetectorClient : MonoBehaviour {
         inputOptions.Add("disabled");
     }
 
-    async void Update() {
-        Boolean skipDetection = false;
-        if (Time.time - last_detection_time < delayBetweenDetections) skipDetection = true;
-        float deltaT = Time.time - last_detection_time;
-        if (deltaT == 0) return;
+    void Update() {
+        stub.update();
 
-        last_detection_time = Time.time;
-        
-        float rawValue = prevValue;
-
-        if (!skipDetection) {
-            switch (inputMode) {
-                case "disabled":
-                    break;
-                case "emulator":
-                    rawValue = Mathf.Sin(Time.time*2);
-                    if (flip) rawValue = -rawValue;
-                    break;
-                case "detector":
-                    try {
-                        if (debugImage && debugImage.isActiveAndEnabled) {
-                            var (value, tex) = await detector.detectWithDebug();
-                            // TODO: [STABILITY] At this point, debugImage may be undefined (if the
-                            // game was stopped while detect() was running), but this serves as a
-                            // good reminder that we need to have deadlines on detections
-                            debugImage.GetComponent<AspectRatioFitter>().aspectRatio = (float)tex.width / tex.height;
-                            debugImage.sprite = Sprite.Create(
-                                tex,
-                                new Rect(0, 0, tex.width, tex.height),
-                                new Vector2(0.5f, 0.5f));
-                            rawValue = value;
-                        } else {
-                            rawValue = await detector.detect();
-                        }
-                        if (flip) rawValue = -rawValue;
-                    } catch (ArgumentNullException) {
-                    } catch (StubException e) {
-                        Debug.LogException(e);
-                    }
-                    break;
-            }
-            detector_value = rawValue;
-            rawValue *= influence;
-        
-            // Discard outlier points. Use previous value instead
-            float rawSpeed = Mathf.Abs((rawValue - prevValue) / deltaT);
-            float acceleration = rawSpeed - prevRawSpeed / deltaT;
-            if (prevRawSpeed > 0 && rawSpeed - prevRawSpeed > 3) {
-                // TODO [QUALITY] reduce false negative rate
-                // TODO [QUALITY] predict value at that time from previous speed & acceleration.
-                rawValue = prevValue;
-            } else {
-                // pass
-            }
-            prevRawSpeed = rawSpeed;
+        float rawValue = 0;
+        float rawSpeed = 0;
+        switch (inputMode) {
+            case "disabled":
+                rawValue = 0;
+                rawSpeed = 0;
+                break;
+            case "emulator":
+                rawValue = Mathf.Sin(Time.time*2f) * 0.5f;
+                rawSpeed = (rawValue - prevRawValue) / Time.deltaTime;
+                break;
+            case "detector":
+                rawValue = detectedValue;
+                rawSpeed = detectedSpeed;
+                break;
         }
+        prevRawValue = rawValue;
 
-        prevValues.Add(rawValue);
-        position = prevValues.average();
-
-        prevSpeeds.Add((position - prevValue) / deltaT);
-        speed = prevSpeeds.average();
-        
-        prevValue = rawValue;
+        position = rawValue * influence * (flip ? -1 : 1);
+        speed = rawSpeed * influence * (flip ? -1 : 1);
     }
 
-    public async void selectInput(int id) {
+    public void onValue(object sender, OnValueEvent evt) {
+        float deltaT = evt.time - last_detection_time;
+        last_detection_time = evt.time;
+        if (deltaT == 0 || deltaT < 0) return;
+
+        detectedSpeed = (evt.value - detectedValue) / deltaT;
+        detectedValue = evt.value;
+    }
+
+    public void selectInput(int id) {
         switch (inputOptions[id]) {
             case "disabled":
             case "emulator":
@@ -126,11 +107,11 @@ public class DetectorClient : MonoBehaviour {
                 break;
             case "video":
                 inputMode = "detector";
-                await detector.setCamera("emulator");
+                stub.sendAction<string>("setCamera", "emulator");
                 break;
             default:
                 inputMode = "detector";
-                await detector.setCamera(id);
+                stub.sendAction<int>("setCamera", id);
                 break;
         }
     }
@@ -139,5 +120,12 @@ public class DetectorClient : MonoBehaviour {
         int index = inputOptions.IndexOf(name);
         if (index < 0) index = 0;
         selectInput(index);
+    }
+
+    void OnApplicationQuit() {
+        stub.destroy();
+    }
+    void OnDestroy() {
+        stub.destroy();
     }
 }

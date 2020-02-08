@@ -30,8 +30,10 @@ class DetectorHandler(WebSocket):
       print(e)
   def handleConnected(self):
     clients.append(self)
+    print("a client joined. "+str(len(clients)))
   def handleClose(self):
-     clients.remove(self)
+    clients.remove(self)
+    print("a client left. "+str(len(clients)))
 
 """
 Handle incoming messages
@@ -43,16 +45,17 @@ def handleMessage(data):
     elif data["action"] == "setActive": detector.active = data["value"]
     elif data["action"] == "setCamera":
       info = detector.set_camera(data["value"])
-      print (info)
-      send({'type': 'cameraInfo', 'value': info })
+      send({'type': 'cameraInfo', 'arrayValue': info })
+      mask = detector.getCurrentMask()
+      if mask is not None:
+        send({'type': 'detectorMask', 'value': image2dataUrl(mask) })
     elif data["action"] == "setMask": detector.set_mask(data["value"])
     elif data["action"] == "getMask":
       mask = detector.getCurrentMask()
-      if (mask is not None): send({'type': 'detectorMask', 'value': image2dataUrl(mask) })
+      if mask is not None: send({'type': 'detectorMask', 'value': image2dataUrl(mask) })
     elif data["action"] == "getCameraInfo":
       info = detector.getCameraInfo()
-      print(info)
-      send({'type': 'cameraInfo', 'value': info })
+      send({'type': 'cameraInfo', 'arrayValue': info })
     elif data["action"] == "getFrame":
       frame = detector.getFrame(masked=False)
       send({'type': 'cameraFrame', 'value': image2dataUrl(frame) })
@@ -83,19 +86,29 @@ detector.init()
 
 # OpenCV loop
 last_detection_time = 0
+# start_time is used to offset time measuurements, so that we don't loose float precision on the app
+# side (larger floats have lower precision)
+start_time = time.time()
 while True:
   try:
     message = received_messages.get_nowait()
     while message:
-      handleMessage(message)
+      try:
+        handleMessage(message)
+      except Exception as e:
+        print(e)
+        send({'type': 'Exception', 'value': str(e) })
       message = received_messages.get_nowait()
   except queue.Empty:
     pass
 
   try:
+    # The detection time is best described as the time of capturing a frame, which is the first thing
+    # 'detector.detect' does.
+    detection_time = time.time() - start_time
     value, display = detector.detect()
     if value:
-      send({'type': 'detectorValue', 'value': value })
+      send({'type': 'detectorValue', 'arrayValue': [value, detection_time] })
     if display is not None:
       send({'type': 'detectorDisplay', 'value': image2dataUrl(display) })
   except KeyboardInterrupt:
@@ -103,6 +116,7 @@ while True:
     break
   except Exception as e:
     print(e)
+    send({'type': 'Exception', 'value': str(e) })
     pass
   time.sleep(20 / 1000.0)
 

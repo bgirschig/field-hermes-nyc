@@ -12,7 +12,7 @@ ActionButtons.addListener('setDebug', value => {
   debugImg.style.visibility = value == "true" ? "" : "hidden";
 });
 
-DetectorClient.addListener('detectorValue', value => {
+DetectorClient.addListener('detectorValue', ([value, time]) => {
   marker.style.left = `${50 + 50 * value}%`;
 });
 

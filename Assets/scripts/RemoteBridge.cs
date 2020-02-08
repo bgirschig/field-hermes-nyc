@@ -78,7 +78,6 @@ public class RemoteBridge : MonoBehaviour
 
         if (ws != null) ws.Close();
 
-        Debug.Log(string.Format("connecting to {0}", url));
         ws = new WebSocket(url);
         ws.OnMessage += (object sender, MessageEventArgs e) => {
             Debug.Log(e.Data);
