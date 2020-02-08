@@ -8,12 +8,17 @@
 </head>
 <body>
   <div class="actions">
-    <button class="actionBtn" data-action="setActive" data-value="true">activate</button>
-    <button class="actionBtn" data-action="setActive" data-value="false">deactivate</button><br>
-    <button class="actionBtn" data-action="setDebug" data-value="true">enable debug</button>
-    <button class="actionBtn" data-action="setDebug" data-value="false">disable debug</button><br>
-    <input type="text" id="cameraName" value="0">
-    <button class="actionBtn" data-action="setCamera" data-valueTarget="#cameraName">set camera</button>
+    <div>
+      <label for="targetIP">Target device IP</label><br>
+      <input type="text" name="targetIP" id="targetIP" placeholder="targetIP (eg. localhost)"><br>
+      <br>
+      <button class="actionBtn" data-action="setActive" data-value="true">activate</button>
+      <button class="actionBtn" data-action="setActive" data-value="false">deactivate</button><br>
+      <button class="actionBtn" data-action="setDebug" data-value="true">enable debug</button>
+      <button class="actionBtn" data-action="setDebug" data-value="false">disable debug</button><br>
+      <input type="text" id="cameraName" value="0">
+      <button class="actionBtn" data-action="setCamera" data-valueTarget="#cameraName">set camera</button>
+    </div>
   </div>
   <div class="feedback">
     <img src="" id="debugImg">

@@ -157,7 +157,7 @@ function loop() {
   requestAnimationFrame(loop);
 
   const now = performance.now();
-  if (now - lastCaptureTime > 1000) {
+  if (now - lastCaptureTime > 5000) {
     lastCaptureTime = now;    
     DetectorClient.sendAction('getFrame');
   }

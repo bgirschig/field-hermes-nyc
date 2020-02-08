@@ -2,22 +2,29 @@ import EventHandler from "./EventHandler.js";
 
 const ACTION_TIMEOUT_SECONDS = 2;
 
-let socket = new WebSocket("ws://localhost:9000");
+let socket;
 const eventHandler = new EventHandler();
 const pendingMessages = [];
 
-socket.onmessage = e => {
-  const data = JSON.parse(e.data);
-  eventHandler.invoke(data.type, data.value || data.arrayValue);
-};
-socket.onopen = () => {
-  let message;
-  while (message = pendingMessages.pop()) {
-    if (performance.now() > message.timeout) return;
-    
-    socket.send(JSON.stringify(message));
+setHost();
+
+function setHost(host="localhost") {
+  if (socket) socket.close();
+  socket = new WebSocket(`ws://${host}:9000`)
+  console.log(`connecting to ${socket.url}`)
+  
+  socket.onmessage = e => {
+    const data = JSON.parse(e.data);
+    eventHandler.invoke(data.type, data.value || data.arrayValue);
   };
-};
+  socket.onopen = () => {
+    let message;
+    while (message = pendingMessages.pop()) {
+      if (performance.now() > message.timeout) return;
+      socket.send(JSON.stringify(message));
+    };
+  };
+}
 
 function sendAction(action, value="") {
   try {
@@ -41,6 +48,7 @@ const out = {
   socket,
   sendAction,
   eventHandler,
+  setHost,
 };
 eventHandler.bind(out);
 

@@ -8,6 +8,13 @@ const debugImg = document.querySelector('#debugImg');
 ActionButtons.init();
 MaskEditor.init();
 
+const ipInput = document.querySelector("#targetIP");
+ipInput.addEventListener("blur", onNewIp);
+ipInput.addEventListener("keyup", e => { if (e.keyCode === 13) onNewIp(e) });
+function onNewIp(e) {
+  DetectorClient.setHost(e.target.value);
+}
+
 ActionButtons.addListener('setDebug', value => {
   debugImg.style.visibility = value == "true" ? "" : "hidden";
 });
