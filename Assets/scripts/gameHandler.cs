@@ -12,10 +12,9 @@ public class gameHandler : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        var ctrl  = (Input.GetKey(KeyCode.RightControl) || Input.GetKey(KeyCode.LeftControl));
-        var cmd = Input.GetKey(KeyCode.LeftCommand) || Input.GetKey(KeyCode.RightCommand);
-        
-        if (Input.GetKeyDown(KeyCode.F)) {
+        var ctrl  = Input.GetKey(KeyCode.RightControl) || Input.GetKey(KeyCode.LeftControl);
+
+        if (ctrl && Input.GetKeyDown(KeyCode.F)) {
             Screen.fullScreen = !Screen.fullScreen;
             if (Screen.fullScreen) {
                 Screen.SetResolution(
@@ -31,7 +30,7 @@ public class gameHandler : MonoBehaviour {
                 );
             }
         }
-        if (Input.GetKeyDown(KeyCode.M)) UI.SetActive(!UI.activeSelf);
-        if (Input.GetKeyDown(KeyCode.C)) SceneManager.LoadScene("ControlRoom");
+        if (ctrl && Input.GetKeyDown(KeyCode.M)) UI.SetActive(!UI.activeSelf);
+        if (ctrl && Input.GetKeyDown(KeyCode.C)) SceneManager.LoadScene("ControlRoom");
     }
 }

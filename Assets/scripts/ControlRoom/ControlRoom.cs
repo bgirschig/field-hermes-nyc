@@ -45,7 +45,8 @@ public class ControlRoom : MonoBehaviour {
     }
  
     void Update() {
-        if (Input.GetKeyDown(KeyCode.C)) SceneManager.LoadScene("main");
+        var ctrl  = (Input.GetKey(KeyCode.RightControl) || Input.GetKey(KeyCode.LeftControl));
+        if (ctrl && Input.GetKeyDown(KeyCode.C)) SceneManager.LoadScene("main");
         while (pendingMessages.Count > 0) handleMessage(pendingMessages.Dequeue());
     }
 

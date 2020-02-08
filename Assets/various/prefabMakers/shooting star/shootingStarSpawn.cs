@@ -22,7 +22,9 @@ public class shootingStarSpawn : MonoBehaviour
 
     // Update is called once per frame
     void Update() {
-        if (Input.GetKeyDown(KeyCode.S)) spawn();
+        var ctrl  = (Input.GetKey(KeyCode.RightControl) || Input.GetKey(KeyCode.LeftControl));
+
+        if (ctrl && Input.GetKeyDown(KeyCode.S)) spawn();
         if (Time.time > next_spawn_time) {
             spawn();
             next_spawn_time = getNextSpawnTime();

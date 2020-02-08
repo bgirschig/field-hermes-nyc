@@ -37,7 +37,8 @@ public class Eureka : MonoBehaviour
 
     // Update is called once per frame
     void Update() {
-        if (Input.GetKeyUp(KeyCode.E)) toggle();
+        var ctrl  = Input.GetKey(KeyCode.RightControl) || Input.GetKey(KeyCode.LeftControl);
+        if (ctrl && Input.GetKeyDown(KeyCode.E)) toggle();
 
         if (active) {
             if (Time.time > nextStarTime) {
