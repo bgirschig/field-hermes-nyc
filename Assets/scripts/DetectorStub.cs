@@ -49,7 +49,7 @@ public class DetectorStub {
   public void update() {
     if (
       ws.ReadyState == WebSocketSharp.WebSocketState.Closed &&
-      (DateTime.Now - lastConnectionAttempt).TotalSeconds > 1) {
+      (DateTime.Now - lastConnectionAttempt).TotalSeconds > 2) {
         lastConnectionAttempt = DateTime.Now;
         ws.Connect();
     }
@@ -80,6 +80,8 @@ public class DetectorStub {
   }
 
   public void sendAction<T>(string actionName, T value) {
+    if (ws.ReadyState != WebSocketState.Open) return;
+
     var message = new DetectorAction<T>();
     message.value = value;
     message.action = actionName;
