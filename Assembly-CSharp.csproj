@@ -53,6 +53,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\SwingMapPlacer.cs" />
      <Compile Include="Assets\post_processing\postProcessing.cs" />
      <Compile Include="Assets\scripts\AnimationSwingController.cs" />
      <Compile Include="Assets\scripts\ControlRoom\ControlRoom.cs" />
@@ -72,6 +73,10 @@
      <Compile Include="Assets\scripts\utils\RollingArray.cs" />
      <Compile Include="Assets\scripts\utils\ShowValue.cs" />
      <Compile Include="Assets\scripts\utils\SocketStubClient.cs" />
+     <Compile Include="Assets\scripts\utils\bezier\Bezier.cs" />
+     <Compile Include="Assets\scripts\utils\bezier\Path.cs" />
+     <Compile Include="Assets\scripts\utils\bezier\PathCreator.cs" />
+     <Compile Include="Assets\scripts\utils\bezier\examples\PathPlacer.cs" />
      <Compile Include="Assets\scripts\utils\linearMove.cs" />
      <Compile Include="Assets\scripts\utils\stringUtils.cs" />
      <Compile Include="Assets\various\prefabMakers\shooting star\ShootingStar.cs" />
