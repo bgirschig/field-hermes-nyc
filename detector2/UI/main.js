@@ -20,7 +20,7 @@ ActionButtons.addListener('setDebug', value => {
 });
 
 DetectorClient.addListener('detectorValue', ([value, time]) => {
-  marker.style.left = `${50 + 50 * value}%`;
+  marker.style.left = `${50 + 100 * value}%`;
 });
 
 DetectorClient.addListener('detectorDisplay', value => {

@@ -49,7 +49,7 @@ export function init() {
   });
 
   // initialize event
-  mainCanvas.addEventListener('mousedown', onMouseDown);
+  window.addEventListener('mousedown', onMouseDown);
   window.addEventListener('mouseup', onMouseUp);
   window.addEventListener('mousemove', onMouseMove);
   window.addEventListener('keyup', onKey);
@@ -157,7 +157,7 @@ function loop() {
   requestAnimationFrame(loop);
 
   const now = performance.now();
-  if (now - lastCaptureTime > 5000) {
+  if (now - lastCaptureTime > 1000) {
     lastCaptureTime = now;    
     DetectorClient.sendAction('getFrame');
   }
