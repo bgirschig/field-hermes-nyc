@@ -11,8 +11,15 @@ public class OnValueEvent {
 }
 
 public class DetectorStub {
-  WebSocket ws;
+  WebSocket ws = null;
   string host;
+
+  float delayBetweenReconnects = 1f;
+  // After trying to connect a few times unsuccessfuly (10 times), websocketSharp throws an error
+  // on every attempt and "gives up" connecting. to avoid that, we create a new websocket instance
+  // when we reach that treshold
+  int reconnecCount = 0; // number of connection attempts on the current websocket instance
+  int maxReconnectOnInstance = 10; // empirically chosen number
 
   Queue<DetectorMessage> pendingMessages;
   Queue<DetectorMessage> pendingActions;
@@ -22,37 +29,13 @@ public class DetectorStub {
 
   public DetectorStub(string host="localhost:9000") {
     this.host = host;
-
     pendingMessages = new Queue<DetectorMessage>();
-    ws = new WebSocket(string.Format("ws://{0}", host));
-
-    ws.OnMessage += (sender, e) => {
-      try {
-        var message = JsonConvert.DeserializeObject<DetectorMessage>(e.Data);
-        pendingMessages.Enqueue(message);  
-      } catch (JsonReaderException) {
-        Debug.Log(e.Data);
-        throw;
-      }
-    };
-    ws.OnError += (sender, e) => {
-      Debug.LogException(e.Exception);
-    };
-    ws.OnClose += (sender, e) => {
-    };
-
-    Debug.Log(string.Format("detectro stub conneting to {0}", ws.Url));
-    ws.Connect();
+    tryConnect();
   }
 
   // to be called periodically
   public void update() {
-    if (
-      ws.ReadyState == WebSocketSharp.WebSocketState.Closed &&
-      (DateTime.Now - lastConnectionAttempt).TotalSeconds > 2) {
-        lastConnectionAttempt = DateTime.Now;
-        ws.Connect();
-    }
+    if (ws.ReadyState == WebSocketSharp.WebSocketState.Closed) tryConnect();
 
     float? latestValue = null;
     float? latestTime = null;
@@ -77,6 +60,42 @@ public class DetectorStub {
       evt.value = (float)latestValue;
       onValue?.Invoke(this, evt);
     }
+  }
+
+  // Try connecting to the detector server, and setup event listeners
+  // handles creating and renewing websocket instances when needed
+  public void tryConnect() {
+    if ((DateTime.Now - lastConnectionAttempt).TotalSeconds < delayBetweenReconnects) return;
+    lastConnectionAttempt = DateTime.Now;
+
+    if (ws != null) ws.Close();
+    if (ws == null || reconnecCount >= maxReconnectOnInstance) {
+      Debug.Log("cerating a new websocket instance");
+      ws = new WebSocket(string.Format("ws://{0}", host));
+      reconnecCount = 0;
+    
+      ws.OnOpen += (sender, e) => {
+        Debug.Log("connected to detector server");
+      };
+      ws.OnMessage += (sender, e) => {
+        try {
+          var message = JsonConvert.DeserializeObject<DetectorMessage>(e.Data);
+          pendingMessages.Enqueue(message);  
+        } catch (JsonReaderException) {
+          Debug.Log(e.Data);
+          throw;
+        }
+      };
+      ws.OnError += (sender, e) => {
+        Debug.LogException(e.Exception);
+      };
+      ws.OnClose += (sender, e) => {
+      };
+    }
+
+    Debug.Log(string.Format("detector stub conneting to {0}", ws.Url));
+    ws.Connect();
+    reconnecCount += 1;
   }
 
   public void sendAction<T>(string actionName, T value) {

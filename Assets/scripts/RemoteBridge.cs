@@ -84,6 +84,7 @@ public class RemoteBridge : MonoBehaviour
             bool isValidMessage = (string)message["messageType"] == "SwingControl";
             if (isValidMessage) pendingMessages.Enqueue(message.ToObject<SwingControl>());
         };
+        Debug.Log(string.Format("remote bridge conneting to {0}", ws.Url));
         ws.Connect();
         nextReconnectTime = Time.time + 2.0f;
     }
