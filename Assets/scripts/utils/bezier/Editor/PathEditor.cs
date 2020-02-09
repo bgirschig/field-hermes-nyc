@@ -26,8 +26,8 @@ public class PathEditor : Editor
         Vector2 mousePos = HandleUtility.GUIPointToWorldRay(guiEvent.mousePosition).origin;
 
         if (guiEvent.type == EventType.MouseDown && guiEvent.button == 0 && guiEvent.shift) {
-            path.addSegment(mousePos);
             Undo.RecordObject(creator, "add point");
+            path.addSegment(creator.transform.InverseTransformPoint(mousePos));
         }
     }
 
@@ -47,7 +47,7 @@ public class PathEditor : Editor
         }
 
         for (int i = 0; i < path.numPoints; i++) {
-            float size = HandleUtility.GetHandleSize(creator.transform.TransformPoint(path[i])) * 0.2f;
+            float size = HandleUtility.GetHandleSize(creator.transform.TransformPoint(path[i])) * 0.1f;
             EditorGUI.BeginChangeCheck();
             Vector3 newPosition = Handles.FreeMoveHandle(creator.transform.TransformPoint(path[i]), Quaternion.identity, size, Vector3.zero, Handles.ConeHandleCap);
             if (EditorGUI.EndChangeCheck()) {
