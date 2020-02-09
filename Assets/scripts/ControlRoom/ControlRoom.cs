@@ -27,8 +27,6 @@ public class ControlRoom : MonoBehaviour {
         Application.targetFrameRate = 30;
 
         swings = swingGroup.GetComponentsInChildren<SwingStatus>();
-        for (int i = 0; i < swings.Length; i++) swings[i].swing_id = i;
-        
         pendingMessages = new Queue<SwingState>();
 
         // socket server

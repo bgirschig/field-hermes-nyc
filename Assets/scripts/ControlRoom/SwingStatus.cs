@@ -15,6 +15,7 @@ public class SwingStatus : MonoBehaviour
     float max = 0;
     SwingState current_state;
     ControlRoom controlRoom;
+    SwingMapPlacer mapCursor;
 
     float range {
         get { return max - min; }
@@ -46,6 +47,8 @@ public class SwingStatus : MonoBehaviour
             state.fps,
             state.pathPosition*100
         ).Trim();
+        
+        mapCursor.time = state.pathPosition;
     }
 
     public void sendControl(string action) {
@@ -57,11 +60,10 @@ public class SwingStatus : MonoBehaviour
 
     // Start is called before the first frame update
     void Start() {
+        swing_id = transform.GetSiblingIndex();
+
         text = GetComponentInChildren<Text>();
         controlRoom = FindObjectOfType<ControlRoom>();
-    }
-
-    // Update is called once per frame
-    void Update() {
+        mapCursor = FindObjectOfType<PathCreator>().transform.GetComponentsInChildren<SwingMapPlacer>()[swing_id];
     }
 }
