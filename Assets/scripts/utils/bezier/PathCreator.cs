@@ -11,13 +11,14 @@ public class PathCreator : MonoBehaviour {
         path = new Path(transform.position);
     }
 
-    public void computePoints() {
-        precomputedPoints = path.CalcualteEvenlySpacedPoints(0.1f, 1);
+    public void computePoints(float spacing=0.1f, float resolution=1f) {
+        precomputedPoints = path.CalcualteEvenlySpacedPoints(spacing, resolution);
     }
 
     public Vector2 GetPointAtTime(float time) {
         if (time >= 1) return transform.TransformPoint(precomputedPoints[precomputedPoints.Length - 1]);
-        int segmentStartIndex = Mathf.FloorToInt(precomputedPoints.Length * time);
+        if (time <= 0) return transform.TransformPoint(precomputedPoints[0]);
+        int segmentStartIndex = Mathf.FloorToInt((precomputedPoints.Length - 1) * time);
         int segmentEndIndex = segmentStartIndex + 1;
         float interval = 1f / precomputedPoints.Length;
 
