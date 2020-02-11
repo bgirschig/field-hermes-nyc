@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -32,7 +32,7 @@ public class Eureka : MonoBehaviour
                 starRate = 0;
             }
             blinkRate = 5;
-            nextBlinkTime = Time.time + 73;
+            nextBlinkTime = Time.time + 73.8f;
             nextStarTime = Time.time + 1/starRate;
             stopTime = Time.time + 85;
             nextColorGroup = controller.colorGroupIndex + 1;
