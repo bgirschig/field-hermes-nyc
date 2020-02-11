@@ -93,7 +93,6 @@ public class DetectorStub {
       };
     }
 
-    Debug.Log(string.Format("detector stub conneting to {0}", ws.Url));
     ws.Connect();
     reconnecCount += 1;
   }

@@ -14,31 +14,41 @@ public class Eureka : MonoBehaviour
     float nextBlinkTime;
     float stopTime;
     float blinkRate;
+    float maxBlinkRate = 15;
     int nextColorGroup = 0;
 
     // Start is called before the first frame update
     void Start() {
-        
     }
 
-    public void toggle() {
+    public void toggle(bool with_stars=true) {
         if (active) {
             active = false;
             controller.colorGroupIndex = nextColorGroup;
         } else {
             active = true;
+            if (with_stars) {
+                starRate = 1;
+            } else {
+                starRate = 0;
+            }
             blinkRate = 5;
-            starRate = 1;
-            nextBlinkTime = Time.time + 60;
-            stopTime = Time.time + 63;
+            nextBlinkTime = Time.time + 73;
+            nextStarTime = Time.time + 1/starRate;
+            stopTime = Time.time + 85;
             nextColorGroup += 1;
         }
+    }
+
+    public void stop() {
+        active = false;
+        controller.colorGroupIndex = nextColorGroup;
     }
 
     // Update is called once per frame
     void Update() {
         var ctrl  = Input.GetKey(KeyCode.RightControl) || Input.GetKey(KeyCode.LeftControl);
-        if (ctrl && Input.GetKeyDown(KeyCode.E)) toggle();
+        if (ctrl && Input.GetKeyDown(KeyCode.E)) toggle(false);
 
         if (active) {
             if (Time.time > nextStarTime) {
@@ -49,7 +59,7 @@ public class Eureka : MonoBehaviour
             if (Time.time > nextBlinkTime) {
                 controller.colorGroupIndex += 1;
                 nextBlinkTime = Time.time + 1/blinkRate;
-                blinkRate += 1f;
+                blinkRate = Mathf.Min(maxBlinkRate, blinkRate + 1f);
             }
             if (Time.time > stopTime) {
                 active = false;

@@ -23,6 +23,10 @@ public class ControlRoom : MonoBehaviour {
     SwingStatus[] swings;
     private Queue<MessageProtos.SwingState> pendingMessages;
 
+    public int swing_count {
+        get { return swings.Length; }
+    }
+
     void Start() {
         Application.targetFrameRate = 30;
 

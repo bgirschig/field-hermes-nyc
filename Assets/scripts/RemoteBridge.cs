@@ -84,7 +84,6 @@ public class RemoteBridge : MonoBehaviour
             bool isValidMessage = (string)message["messageType"] == "SwingControl";
             if (isValidMessage) pendingMessages.Enqueue(message.ToObject<SwingControl>());
         };
-        Debug.Log(string.Format("remote bridge conneting to {0}", ws.Url));
         ws.Connect();
         nextReconnectTime = Time.time + 2.0f;
     }
@@ -94,6 +93,9 @@ public class RemoteBridge : MonoBehaviour
         
         if (message.action == "shooting_star") shootingStarController.spawn();
         else if (message.action == "eureka") eurekaController.toggle();
+        else if (message.action == "eureka_dry") eurekaController.toggle(false);
+        else if (message.action == "eureka_stop") eurekaController.stop();
+        else if (message.action == "fast_forward") swingController.fast_forward = !swingController.fast_forward;
         else Debug.Log("Action not found");
     }
 }

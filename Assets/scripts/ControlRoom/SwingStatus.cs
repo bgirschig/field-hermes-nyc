@@ -51,6 +51,16 @@ public class SwingStatus : MonoBehaviour
         mapCursor.time = state.pathPosition;
     }
 
+    public void eureka() {
+        for (int id = 0; id < controlRoom.swing_count; id++) {
+            var message = new SwingControl();
+            message.swing_id = id;
+            if (id == swing_id) message.action = "eureka";
+            else message.action = "eureka_dry";
+            controlRoom.send(JsonConvert.SerializeObject(message));
+        }
+    }
+
     public void sendControl(string action) {
         var message = new SwingControl();
         message.swing_id = swing_id;

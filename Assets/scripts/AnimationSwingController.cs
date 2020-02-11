@@ -10,6 +10,7 @@ public class AnimationSwingController : MonoBehaviour
 
     private double time;
     public float autoAdvanceSpeed = 0.2f;
+    public bool fast_forward = false;
     
     private float currentVelocity = 0;
     private double targetTime = 0;
@@ -24,6 +25,7 @@ public class AnimationSwingController : MonoBehaviour
     void Update() {
         // auto-advance
         targetTime += autoAdvanceSpeed * Time.deltaTime;
+        if (fast_forward) targetTime += 5f * Time.deltaTime;
 
         if (detectorClient.speed > 0) targetTime += detectorClient.speed * 0.02;
         else targetTime += detectorClient.speed * 0.01;
