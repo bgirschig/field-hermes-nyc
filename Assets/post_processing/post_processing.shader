@@ -11,8 +11,8 @@
         
         offsetX ("offset X", Range(-1, 1)) = 0
         offsetY ("offset Y", Range(-1, 1)) = 0
-        scaleX ("offset X", Range(0, 2)) = 1
-        scaleY ("offset Y", Range(0, 2)) = 1
+        scaleX ("scale X", Range(0, 2)) = 1
+        scaleY ("scale Y", Range(0, 2)) = 1
 
     }
     SubShader
