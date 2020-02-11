@@ -61,8 +61,8 @@
 
             fixed4 frag (v2f i) : SV_Target {
                 // apply mapping offsets
-                i.uv.x = i.uv.x / scaleX - offsetX;
-                i.uv.y = i.uv.y / scaleY - offsetY;
+                i.uv.x = (i.uv.x-0.5) / scaleX + 0.5 - offsetX;
+                i.uv.y = (i.uv.y-0.5) / scaleY + 0.5 - offsetY;
 
                 // Figure out what to mask
                 float2 maskUv = i.uv - 0.5;
