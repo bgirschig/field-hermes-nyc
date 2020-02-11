@@ -23,8 +23,7 @@ public class Eureka : MonoBehaviour
 
     public void toggle(bool with_stars=true) {
         if (active) {
-            active = false;
-            controller.colorGroupIndex = nextColorGroup;
+            stop();
         } else {
             active = true;
             if (with_stars) {
@@ -36,7 +35,7 @@ public class Eureka : MonoBehaviour
             nextBlinkTime = Time.time + 73;
             nextStarTime = Time.time + 1/starRate;
             stopTime = Time.time + 85;
-            nextColorGroup += 1;
+            nextColorGroup = controller.colorGroupIndex + 1;
         }
     }
 
