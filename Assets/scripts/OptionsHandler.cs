@@ -65,7 +65,10 @@ public class OptionsHandler : MonoBehaviour
 
         // remote config
         initOption("remote.host", remoteHost, (string val) => remoteBridge.socketHost = val, "localhost");
-        initOption("remote.deviceID", deviceID, (string val) => remoteBridge.ID = int.Parse(val), "0");
+        initOption("remote.deviceID", deviceID, (string val) => {
+            remoteBridge.ID = int.Parse(val);
+            mappingHandler.colorGroupIndex = int.Parse(val);
+        }, "0");
     }
 
     // Initialize a float config option: load from playerprefs, default value, update the global
