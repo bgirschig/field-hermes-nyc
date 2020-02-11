@@ -6,9 +6,12 @@ public class gameHandler : MonoBehaviour {
     GameObject UI;
 
     // Start is called before the first frame update
-    void Start() {
+    IEnumerator Start() {
         Application.targetFrameRate = 30;
         UI = FindObjectOfType<Canvas>().gameObject;
+
+        yield return 0;
+        UI.SetActive(false);
     }
 
     // Update is called once per frame
