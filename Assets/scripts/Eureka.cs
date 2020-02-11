@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -61,9 +61,7 @@ public class Eureka : MonoBehaviour
                 nextBlinkTime = Time.time + 1/blinkRate;
                 blinkRate = Mathf.Min(maxBlinkRate, blinkRate + 1f);
             }
-            if (Time.time > stopTime) {
-                active = false;
-            }
+            if (Time.time > stopTime) stop();
         }
     }
 }
