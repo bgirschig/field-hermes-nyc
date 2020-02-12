@@ -95,6 +95,7 @@ public class RemoteBridge : MonoBehaviour
         else if (message.action == "eureka") eurekaController.toggle();
         else if (message.action == "eureka_dry") eurekaController.toggle(false);
         else if (message.action == "eureka_stop") eurekaController.stop();
+        else if (message.action == "color_switch") eurekaController.nextColor();
         else if (message.action == "fast_forward") swingController.fast_forward = !swingController.fast_forward;
         else Debug.Log("Action not found");
     }

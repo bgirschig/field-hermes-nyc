@@ -44,6 +44,10 @@ public class Eureka : MonoBehaviour
         controller.colorGroupIndex = nextColorGroup;
     }
 
+    public void nextColor() {
+        controller.colorGroupIndex += 1;
+    }
+
     // Update is called once per frame
     void Update() {
         var ctrl  = Input.GetKey(KeyCode.RightControl) || Input.GetKey(KeyCode.LeftControl);
