@@ -13,7 +13,7 @@
         offsetY ("offset Y", Range(-1, 1)) = 0
         scaleX ("scale X", Range(0, 2)) = 1
         scaleY ("scale Y", Range(0, 2)) = 1
-
+        feather ("feather", Range(0, 0.02)) = 0.01
     }
     SubShader
     {
@@ -55,6 +55,7 @@
             float offsetY;
             float scaleX;
             float scaleY;
+            float feather;
             float4 foreground;
             float4 background;
             float4 maskColor;
@@ -69,7 +70,7 @@
                 maskUv.x /= width;
                 maskUv.y /= height;
                 float distance = length(maskUv);
-                float mask = smoothstep(distance, distance+0.01, 0.5);
+                float mask = smoothstep(distance, distance+feather, 0.5);
 
                 // Eureka test
                 // i.uv.x += sin((newUv.y+_Time*2) * 20)*0.1f;

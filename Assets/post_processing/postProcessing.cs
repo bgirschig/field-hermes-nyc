@@ -29,6 +29,10 @@ public class postProcessing : MonoBehaviour {
         get { return materialInstance.GetFloat("scaleY"); }
         set { materialInstance.SetFloat("scaleY", value); }
     }
+    public float feather {
+        get { return materialInstance.GetFloat("feather"); }
+        set { materialInstance.SetFloat("feather", value); }
+    }
 
     private Material materialInstance;
     private int _colorGroupIndex = 0;

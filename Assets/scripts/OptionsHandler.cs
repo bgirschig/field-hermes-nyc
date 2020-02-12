@@ -28,6 +28,7 @@ public class OptionsHandler : MonoBehaviour
     public Slider offsetY;
     public Slider scaleX;
     public Slider scaleY;
+    public Slider feather;
     [Header("Remote")]
     public InputField remoteHost;
     public InputField deviceID;
@@ -62,6 +63,7 @@ public class OptionsHandler : MonoBehaviour
         initOption("mapping.offsetY", offsetY, (float val) => mappingHandler.offsetY = val, 0);
         initOption("mapping.scaleX", scaleX, (float val) => mappingHandler.scaleX = val, 1);
         initOption("mapping.scaleY", scaleY, (float val) => mappingHandler.scaleY = val, 1);
+        initOption("mapping.feather", feather, (float val) => mappingHandler.feather = val, 0.01f);
 
         // remote config
         initOption("remote.host", remoteHost, (string val) => remoteBridge.socketHost = val, "localhost");
