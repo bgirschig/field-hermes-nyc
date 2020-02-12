@@ -2,11 +2,14 @@
 using UnityEngine.UI;
 using MessageProtos;
 using Newtonsoft.Json;
+using System.Collections;
 
 public class SwingStatus : MonoBehaviour
 {
     public int swing_id = -1;
     public GameObject mainSwing;
+    public string displayName;
+    public Text nameLabel;
     Text text;
 
     float prevSpeed = 0;
@@ -27,7 +30,7 @@ public class SwingStatus : MonoBehaviour
         if (float.IsInfinity(state.swingSpeed)) return;
         if (float.IsInfinity(state.swingPosition)) return;
 
-        if (prevSpeed < 0 && state.swingSpeed > 0) swingCount += 1;
+        if (prevSpeed < 0 && state.swingSpeed > 0 && Mathf.Abs(state.swingPosition) > 0.1) swingCount += 1;
         prevSpeed = state.swingSpeed;
 
         if (state.swingPosition < min) min = state.swingPosition;
@@ -38,7 +41,7 @@ public class SwingStatus : MonoBehaviour
 <b>CNT</b> {3:00000}  <b>FPS</b> {4:00.00}  <b>POS</b> {5:00.0}%
             ";
 
-        mainSwing.transform.rotation = Quaternion.Euler(0, 0, state.swingPosition * 25);
+        mainSwing.transform.rotation = Quaternion.Euler(0, 0, state.swingPosition * 35);
         text.text = string.Format(textFormat,
             state.swingPosition,
             range,
@@ -69,11 +72,16 @@ public class SwingStatus : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Start() {
+    IEnumerator Start() {
         swing_id = transform.GetSiblingIndex();
 
         text = GetComponentInChildren<Text>();
         controlRoom = FindObjectOfType<ControlRoom>();
         mapCursor = FindObjectOfType<PathCreator>().transform.GetComponentsInChildren<SwingMapPlacer>()[swing_id];
+        
+        yield return 0;
+
+        mapCursor.displayName = displayName;
+        nameLabel.text = displayName;
     }
 }

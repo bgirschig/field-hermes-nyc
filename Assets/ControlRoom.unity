@@ -443,6 +443,11 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6288127185376696395, guid: bcf8bbd2fee744ddaafcf3123b6c18de,
+        type: 3}
+      propertyPath: displayName
+      value: Rosetta
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bcf8bbd2fee744ddaafcf3123b6c18de, type: 3}
 --- !u!224 &260649607 stripped
@@ -660,8 +665,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 621, y: 0}
-  m_SizeDelta: {x: 229, y: 229}
+  m_AnchoredPosition: {x: -0.000011535, y: 0}
+  m_SizeDelta: {x: 1280, y: 590.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &571825873
 MonoBehaviour:
@@ -683,7 +688,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 16351a5517ff4405f9d27aa161074308, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 318d630c46165444eb4785c845e87b40, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -963,6 +968,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6288127185376696395, guid: bcf8bbd2fee744ddaafcf3123b6c18de,
+        type: 3}
+      propertyPath: displayName
+      value: Voyager
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bcf8bbd2fee744ddaafcf3123b6c18de, type: 3}
@@ -1808,19 +1818,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   path:
     points:
-    - {x: -663.4724, y: -193.12741}
-    - {x: -590.10895, y: -13.104919}
-    - {x: -432.91205, y: -5.143936}
-    - {x: -296.28424, y: -4.802887}
-    - {x: -146.65884, y: -4.429394}
-    - {x: 105.145065, y: -9.1174}
-    - {x: 301.3886, y: -10.057831}
-    - {x: 478.48267, y: -10.906494}
-    - {x: 455.55615, y: 36.9469}
-    - {x: 514.33606, y: 90.24509}
-    - {x: 576.85913, y: 146.93735}
-    - {x: 621.8898, y: 142.79803}
-    - {x: 697.55774, y: 139.1034}
+    - {x: -644.5189, y: -171.53271}
+    - {x: -572.5021, y: 10.285309}
+    - {x: -432.91202, y: -3.797287}
+    - {x: -296.2842, y: -3.4562378}
+    - {x: -146.65881, y: -3.0827446}
+    - {x: 84.90279, y: -3.240412}
+    - {x: 281.14606, y: -4.2266235}
+    - {x: 450.01904, y: -5.075287}
+    - {x: 432.76913, y: 36.738255}
+    - {x: 494.54993, y: 94.14023}
+    - {x: 548.00476, y: 143.80637}
+    - {x: 580.1963, y: 142.91568}
+    - {x: 645.8972, y: 140.603}
+  timeOffset: 0.837
 --- !u!1 &1963099668
 GameObject:
   m_ObjectHideFlags: 0
@@ -2055,6 +2066,11 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6288127185376696395, guid: bcf8bbd2fee744ddaafcf3123b6c18de,
+        type: 3}
+      propertyPath: displayName
+      value: Juno
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bcf8bbd2fee744ddaafcf3123b6c18de, type: 3}
 --- !u!224 &1970595645 stripped
@@ -2117,15 +2133,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.41799998, g: 0.5419445, b: 1, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: a780bc5b67c0343ac95f83908b5557bc, type: 3}
-  m_Type: 2
+  m_Sprite: {fileID: 0}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -2306,6 +2322,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SizeDelta.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6288127185376696395, guid: bcf8bbd2fee744ddaafcf3123b6c18de,
+        type: 3}
+      propertyPath: displayName
+      value: Discovery
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bcf8bbd2fee744ddaafcf3123b6c18de, type: 3}

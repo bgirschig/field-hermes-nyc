@@ -6,6 +6,9 @@ public class PathCreator : MonoBehaviour {
     [HideInInspector]
     public Path path;
     Vector2[] precomputedPoints;
+    
+    [Range(0,1)]
+    public float timeOffset = 0.837f;
 
     public void CreatePath() {
         path = new Path(transform.position);
@@ -16,6 +19,7 @@ public class PathCreator : MonoBehaviour {
     }
 
     public Vector2 GetPointAtTime(float time) {
+        time = (time+timeOffset)%1;
         if (time >= 1) return transform.TransformPoint(precomputedPoints[precomputedPoints.Length - 1]);
         if (time <= 0) return transform.TransformPoint(precomputedPoints[0]);
         int segmentStartIndex = Mathf.FloorToInt((precomputedPoints.Length - 1) * time);
