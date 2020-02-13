@@ -2323,10 +2323,5 @@ PrefabInstance:
       propertyPath: m_SizeDelta.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6288127185376696395, guid: bcf8bbd2fee744ddaafcf3123b6c18de,
-        type: 3}
-      propertyPath: displayName
-      value: Discovery
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bcf8bbd2fee744ddaafcf3123b6c18de, type: 3}

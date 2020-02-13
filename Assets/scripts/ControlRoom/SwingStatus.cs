@@ -20,17 +20,22 @@ public class SwingStatus : MonoBehaviour
     ControlRoom controlRoom;
     SwingMapPlacer mapCursor;
 
+    float swingPositionOffset = 0;
+    float lastReceivedPosition = 0;
+
     float range {
         get { return max - min; }
     }
 
     public void updateState(SwingState state) {
         current_state = state;
+        lastReceivedPosition = state.swingPosition;
+        state.swingPosition -= swingPositionOffset;
 
         if (float.IsInfinity(state.swingSpeed)) return;
         if (float.IsInfinity(state.swingPosition)) return;
 
-        if (prevSpeed < 0 && state.swingSpeed > 0 && Mathf.Abs(state.swingPosition) > 0.1) swingCount += 1;
+        if (prevSpeed < 0 && state.swingSpeed > 0 && Mathf.Abs(state.swingPosition - (float)swingPositionOffset) > 0.1) swingCount += 1;
         prevSpeed = state.swingSpeed;
 
         if (state.swingPosition < min) min = state.swingPosition;
@@ -41,7 +46,7 @@ public class SwingStatus : MonoBehaviour
 <b>CNT</b> {3:00000}  <b>FPS</b> {4:00.00}  <b>POS</b> {5:00.0}%
             ";
 
-        mainSwing.transform.rotation = Quaternion.Euler(0, 0, state.swingPosition * 35);
+        mainSwing.transform.rotation = Quaternion.Euler(0, 0, state.swingPosition * 90);
         text.text = string.Format(textFormat,
             state.swingPosition,
             range,
@@ -62,6 +67,10 @@ public class SwingStatus : MonoBehaviour
             else message.action = "eureka_dry";
             controlRoom.send(JsonConvert.SerializeObject(message));
         }
+    }
+
+    public void calibrate() {
+        swingPositionOffset = lastReceivedPosition;
     }
 
     public void sendControl(string action) {

@@ -40,6 +40,7 @@ public class ControlRoom : MonoBehaviour {
 
         // Socket client
         ws = new WebSocket(string.Format("ws://localhost:4649/"));
+        // ws = new WebSocket(string.Format("ws://192.168.0.11:4649/"));
         ws.OnMessage += (object sender, MessageEventArgs e) => {
             var message = JsonConvert.DeserializeObject<JObject>(e.Data);
             bool isValidMessage = (string)message["messageType"] == "SwingState";
