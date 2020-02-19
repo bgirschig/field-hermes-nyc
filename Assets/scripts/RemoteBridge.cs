@@ -85,7 +85,7 @@ public class RemoteBridge : MonoBehaviour
             if (isValidMessage) pendingMessages.Enqueue(message.ToObject<SwingControl>());
         };
         ws.Connect();
-        nextReconnectTime = Time.time + 2.0f;
+        nextReconnectTime = Time.time + 120.0f;
     }
 
     void HandleMessage(SwingControl message) {
